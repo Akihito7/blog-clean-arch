@@ -9,8 +9,8 @@ interface UserEntityProps {
   updatedAt?: Date;
 };
 
-export class UserEntity extends BaseEntity<UserEntityProps> { 
-  
+export class UserEntity extends BaseEntity<UserEntityProps> {
+
   protected _name: string;
   protected _username: string;
   protected _email: string;
@@ -46,15 +46,15 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
     return this._username;
   }
 
-  get createdAt(){
+  get createdAt() {
     return this._createdAt;
   }
 
-  get updatedAt(){
+  get updatedAt() {
     return this._updatedAt;
   }
 
-  protected updateEmail(email: string) {
+  updateEmail(email: string) {
     this.verifyEmail(email);
     this._email = email;
     this._updatedAt = new Date();
@@ -66,7 +66,7 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
     }
   };
 
-  protected updatePassword(password: string) {
+  updatePassword(password: string) {
     this.verifyPassword(password);
     this._password = password;
     this._updatedAt = new Date();
@@ -78,7 +78,7 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
     }
   }
 
-  protected upatedUsername(username: string) {
+  upatedUsername(username: string) {
     this.verifyUsername(username);
     this._username = username;
   }

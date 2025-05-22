@@ -10,10 +10,17 @@ export abstract class BaseEntity<PropsType> {
   }
 
   get id() {
-    return this.id;
+    return this._id;
   };
 
   get props() {
     return this._props;
+  }
+
+  toJson() {
+    return {
+      id: this._id,
+      ...this._props,
+    }
   }
 }
