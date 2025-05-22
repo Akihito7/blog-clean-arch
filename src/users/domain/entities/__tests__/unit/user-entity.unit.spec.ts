@@ -1,4 +1,4 @@
-import { UserEntity } from "../../user-entity";
+import { UserEntity } from "../../user.entity";
 
 describe('UserEntity Unit Tests', () => {
   let userEntity: UserEntity;

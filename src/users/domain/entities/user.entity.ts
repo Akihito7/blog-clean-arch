@@ -1,4 +1,4 @@
-import { BaseEntity } from "src/shared/domain/entities/base-entity";
+import { BaseEntity } from "src/shared/domain/entities/base.entity";
 
 interface UserEntityProps {
   name: string;
