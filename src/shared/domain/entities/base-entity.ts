@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-abstract class BaseEntity<PropsType> {
+export abstract class BaseEntity<PropsType> {
   _id: string;
   _props: PropsType;
 
@@ -14,6 +14,6 @@ abstract class BaseEntity<PropsType> {
   };
 
   get props() {
-    return this.props;
+    return this._props;
   }
 }
