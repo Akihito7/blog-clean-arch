@@ -1,6 +1,6 @@
 import { BaseEntity } from "src/shared/domain/entities/base.entity";
 
-interface UserEntityProps {
+export interface UserEntityProps {
   name: string;
   username: string;
   email: string;

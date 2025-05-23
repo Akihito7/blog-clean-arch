@@ -1,15 +1,13 @@
-import { UserEntity } from "../../user.entity";
+import { UserPropsFactory } from "src/tests/factories/user-props.factory";
+import { UserEntity, UserEntityProps } from "../../user.entity";
 
 describe('UserEntity Unit Tests', () => {
+  let userProps: UserEntityProps;
   let userEntity: UserEntity;
 
   beforeEach(() => {
-    userEntity = new UserEntity({
-      email: 'test@gmail.com',
-      name: 'jane doe',
-      username: 'jane',
-      password: '1234',
-    });
+    userProps = UserPropsFactory.create()
+    userEntity = new UserEntity(userProps);
   });
 
   it('should instantiate UserEntity successfully', () => {
@@ -22,19 +20,19 @@ describe('UserEntity Unit Tests', () => {
   });
 
   it('should return correct name', () => {
-    expect(userEntity.name).toStrictEqual('jane doe');
+    expect(userEntity.name).toStrictEqual(userProps.name);
   });
 
   it('should return correct username', () => {
-    expect(userEntity.username).toStrictEqual('jane');
+    expect(userEntity.username).toStrictEqual(userProps.username);
   });
 
   it('should return correct email', () => {
-    expect(userEntity.email).toStrictEqual('test@gmail.com');
+    expect(userEntity.email).toStrictEqual(userProps.email);
   });
 
   it('should return correct password', () => {
-    expect(userEntity.password).toStrictEqual('1234');
+    expect(userEntity.password).toStrictEqual(userProps.password);
   });
 
   it('should define createdAt on creation', () => {

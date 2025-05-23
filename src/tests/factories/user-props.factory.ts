@@ -1,4 +1,3 @@
-//faker
 import { faker } from '@faker-js/faker';
 import { UserEntityProps } from 'src/modules/users/domain/entities/user.entity';
 
