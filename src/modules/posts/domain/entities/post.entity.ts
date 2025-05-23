@@ -1,6 +1,6 @@
 import { BaseEntity } from "src/shared/domain/entities/base.entity";
 
-interface PostEntityProps {
+export interface PostEntityProps {
   title: string;
   content: string;
   authorId: string;
@@ -52,25 +52,34 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
     return this._props.likes;
   }
 
-  updateTitle(title: string) {
-    this.verifyTitle(title);
+  updateTitle(title: string, authorId: string) {
+    this.verifyTitle(title, authorId);
     this._props.title = title;
     this._props.updatedAt = new Date();
   }
 
-  verifyTitle(title: string) {
+  verifyTitle(title: string, authorId?: string) {
+
+    if (authorId && this.authorId != authorId) {
+      throw new Error('Voce nao tem permissao para mudar o titulo.')
+    }
+
     if (!title || title.length < 6) {
       throw new Error('Título precisa ser maior que 6 caracteres.')
     }
   }
 
-  updateContent(content: string) {
-    this.verifyContent(content);
+  updateContent(content: string, authorId: string) {
+    this.verifyContent(content, authorId);
     this._props.content = content;
     this._props.updatedAt = new Date();
   }
 
-  verifyContent(content: string) {
+  verifyContent(content: string, authorId?: string) {
+
+    if (authorId && this.authorId != authorId) {
+      throw new Error('Voce nao tem permissao para mudar o titulo.')
+    }
     if (!content || content.length < 64) {
       throw new Error('O conteúdo precisa ser maior que 64 caracteres.')
     }
