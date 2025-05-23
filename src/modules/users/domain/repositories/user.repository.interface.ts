@@ -1,4 +1,4 @@
-import { BaseRepository } from "src/shared/domain/repositories/repository-base";
+import { BaseRepository } from "src/shared/domain/repositories/base-repository";
 import { UserEntity } from "../entities/user.entity";
 
 export interface UserRepository extends BaseRepository<UserEntity> {
