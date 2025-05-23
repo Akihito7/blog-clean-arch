@@ -45,23 +45,21 @@ export class CommentEntity extends BaseEntity<CommentEntityProps> {
 
   private verifyContent(content: string, authorId?: string) {
 
-    if (authorId && this.authorId != authorId) {
-      throw new Error('Voce nao tem permissao para mudar o comentario.')
+    if (authorId && this.authorId !== authorId) {
+      throw new Error("You are not allowed to update this comment.");
     }
 
     if (!content?.trim()) {
-      throw new Error('O comentário precisa ter um conteúdo.');
+      throw new Error("Comment must have content.");
     }
 
-    const length = content.length;
-
-    if (length < 4) {
-      throw new Error('O comentário não pode ter menos de 4 caracteres.');
+    if (content.length < 4) {
+      throw new Error("Comment must be at least 4 characters long.");
     }
 
-    if (length > 512) {
-      throw new Error('O comentário não pode ter mais de 512 caracteres.');
+    if (content.length > 512) {
+      throw new Error("Comment must be at most 512 characters long.");
     }
   }
-
+  
 }

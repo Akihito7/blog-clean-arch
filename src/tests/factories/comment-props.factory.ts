@@ -1,11 +1,18 @@
 import { faker } from '@faker-js/faker';
+import { CommentEntityProps } from 'src/modules/comments/domain/entities/comment.entity';
 import { v4 as uuidv4 } from 'uuid';
-import { CommentEntityProps } from "src/modules/comments/domain/entities/comment.entity";
 
+interface CommentFactoryProps {
+  authorId?: string;
+  content?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  likes?: number;
+}
 export class CommentPropsFactory {
-  static create(props?: CommentEntityProps): CommentEntityProps {
+  static create(props?: CommentFactoryProps): CommentEntityProps {
     return {
-      content: props?.content ?? faker.lorem.paragraphs(),
+      content: props?.content ?? faker.lorem.paragraphs({ min : 64, max : 244}),
       authorId: props?.authorId ?? uuidv4(),
       createdAt: props?.createdAt ?? new Date(),
       updatedAt: props?.updatedAt ?? null as any,

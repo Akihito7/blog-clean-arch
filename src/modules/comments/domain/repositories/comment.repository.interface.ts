@@ -1,5 +1,5 @@
 import { BaseRepository } from "src/shared/domain/repositories/base-repository";
-import { CommentEntity } from "../comment.entity";
+import { CommentEntity } from "../entities/comment.entity";
 
 export interface CommentRepositoryInterface extends BaseRepository {
   findByAuthor(authorId: string): CommentEntity[]

@@ -1,5 +1,5 @@
 import { BaseRepository } from "src/shared/domain/repositories/base-repository";
-import { PostEntity } from "../post.entity";
+import { PostEntity } from "../entities/post.entity";
 
 export interface PostRepositoryInterface extends BaseRepository {
   findByTags(tags: string[]): PostEntity[]
