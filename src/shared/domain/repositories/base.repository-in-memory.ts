@@ -18,7 +18,7 @@ export abstract class BaseRepositoryInMemory<Data extends BaseEntity> implements
     this.items.push(entity);
   }
 
-  update(entity: Data): void {
+  update(entity: Data): Data {
     const entityExists = this.entityExists(entity.id);
 
     if (!entityExists) throw new Error('Entity not found.');
@@ -26,6 +26,8 @@ export abstract class BaseRepositoryInMemory<Data extends BaseEntity> implements
     const indexItem = this.items.findIndex(item => item.id.toString() === entity.id.toString());
 
     this.items[indexItem] = entity;
+
+    return entity
   };
 
   delete(id: string): void {
