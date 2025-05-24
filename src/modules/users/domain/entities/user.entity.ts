@@ -1,4 +1,5 @@
 import { BaseEntity } from "src/shared/domain/entities/base.entity";
+import { InvalidContentError } from "src/shared/domain/errors/invalid-content.error";
 
 export interface UserEntityProps {
   name: string;
@@ -62,7 +63,7 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
 
   private verifyEmail(email: string) {
     if (!email.includes('@')) {
-      throw new Error('Email inválido.')
+      throw new InvalidContentError('Invalid email address.');
     }
   };
 
@@ -74,7 +75,7 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
 
   private verifyPassword(password: string) {
     if (password.length < 8) {
-      throw new Error('A senha deve conter no minimo 8 caracteres.')
+      throw new InvalidContentError('Password must be at least 8 characters long.')
     }
   }
 
@@ -85,7 +86,7 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
 
   private verifyUsername(username: string) {
     if (username.length < 6) {
-      throw new Error('O username deve conter no minimo 6 caracteres.')
+      throw new InvalidContentError('Username must be at least 6 characters long.');
     }
   }
 

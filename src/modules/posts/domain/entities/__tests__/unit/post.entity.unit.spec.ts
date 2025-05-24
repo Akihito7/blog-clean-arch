@@ -1,6 +1,8 @@
 import { PostPropsFactory } from "src/tests/factories/post-props.factory";
 import { PostEntity, PostEntityProps } from "../../post.entity";
 import { faker } from '@faker-js/faker';
+import { NotAllowedError } from "src/shared/domain/errors/not-allowed.error";
+import { InvalidContentError } from "src/shared/domain/errors/invalid-content.error";
 
 describe('PostEntity Unit Tests', () => {
   let postEntityProps: PostEntityProps;
@@ -57,26 +59,30 @@ describe('PostEntity Unit Tests', () => {
   });
 
   it('should not update title if authorId is different', () => {
-    expect(() => postEntity.updateTitle('newTitle', 'fakeId')).toThrow('Voce nao tem permissao para mudar o titulo.');
+    expect(() => postEntity.updateTitle('newTitle', 'fakeId'))
+      .toThrow(new NotAllowedError('You do not have permission to change the title.'));
   });
 
   it('should not update title if it has less than 6 characters', () => {
-    expect(() => postEntity.updateTitle('short', postEntity.authorId)).toThrow('Título precisa ser maior que 6 caracteres.');
+    expect(() => postEntity.updateTitle('short', postEntity.authorId))
+      .toThrow(new InvalidContentError('Title must be longer than 5 characters.'));
   });
 
   it('should update content with valid data and correct authorId', () => {
-    const content = faker.lorem.text().repeat(4); 
+    const content = faker.lorem.text().repeat(4);
     postEntity.updateContent(content, postEntity.authorId);
     expect(postEntity.content).toStrictEqual(content);
   });
 
   it('should not update content if authorId is different', () => {
     const content = faker.lorem.text().repeat(4);
-    expect(() => postEntity.updateContent(content, 'fakeId')).toThrow('Voce nao tem permissao para mudar o titulo.');
+    expect(() => postEntity.updateContent(content, 'fakeId'))
+      .toThrow(new NotAllowedError('You do not have permission to change the content.'));
   });
 
   it('should not update content if it has less than 64 characters', () => {
-    expect(() => postEntity.updateContent('short content', postEntity.authorId)).toThrow('O conteúdo precisa ser maior que 64 caracteres.');
+    expect(() => postEntity.updateContent('short content', postEntity.authorId))
+      .toThrow(new InvalidContentError('Content must be longer than 63 characters.'));
   });
 
   it('should update tags correctly', () => {

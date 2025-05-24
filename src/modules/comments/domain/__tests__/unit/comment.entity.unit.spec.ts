@@ -1,4 +1,6 @@
 import { CommentEntity } from "src/modules/comments/domain/entities/comment.entity";
+import { InvalidContentError } from "src/shared/domain/errors/invalid-content.error";
+import { NotAllowedError } from "src/shared/domain/errors/not-allowed.error";
 import { CommentPropsFactory } from "src/tests/factories/comment-props.factory";
 
 
@@ -25,20 +27,22 @@ describe("CommentEntity", () => {
   it("should throw an error if content is empty", () => {
     const props = CommentPropsFactory.create({ content: "  " });
 
-    expect(() => new CommentEntity(props)).toThrow("Comment must have content.");
+    expect(() => new CommentEntity(props)).toThrow(new InvalidContentError("Comment must have content."));
   });
 
   it("should throw an error if content is shorter than 4 characters", () => {
     const props = CommentPropsFactory.create({ content: '123' });
 
-    expect(() => new CommentEntity(props)).toThrow("Comment must be at least 4 characters long.");
+    expect(() => new CommentEntity(props)).toThrow(
+      new InvalidContentError("Comment must be at least 4 characters long.")
+    );
   });
 
   it("should throw an error if content is longer than 512 characters", () => {
     const longContent = "a".repeat(513);
     const props = CommentPropsFactory.create({ content: longContent });
 
-    expect(() => new CommentEntity(props)).toThrow("Comment must be at most 512 characters long.");
+    expect(() => new CommentEntity(props)).toThrow(new InvalidContentError("Comment must be at most 512 characters long."));
   });
 
   it("should update content successfully if author matches", () => {
@@ -57,6 +61,6 @@ describe("CommentEntity", () => {
     const comment = new CommentEntity(props);
 
     expect(() => comment.updateContent("Trying to update", "wrong-author-id"))
-      .toThrow("You are not allowed to update this comment.");
+      .toThrow(new NotAllowedError("You are not allowed to update this comment."));
   });
 });

@@ -1,4 +1,6 @@
 import { BaseEntity } from "src/shared/domain/entities/base.entity";
+import { InvalidContentError } from "src/shared/domain/errors/invalid-content.error";
+import { NotAllowedError } from "src/shared/domain/errors/not-allowed.error";
 
 export interface PostEntityProps {
   title: string;
@@ -19,7 +21,7 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
     this._props.updatedAt = _props.updatedAt ?? null as any;
     this._props.likes = _props.likes ?? 0;
 
-    
+
   };
 
   get id(): string {
@@ -63,11 +65,11 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
   verifyTitle(title: string, authorId?: string) {
 
     if (authorId && this.authorId != authorId) {
-      throw new Error('Voce nao tem permissao para mudar o titulo.')
+      throw new NotAllowedError('You do not have permission to change the title.');
     }
 
     if (!title || title.length < 6) {
-      throw new Error('Título precisa ser maior que 6 caracteres.')
+      throw new InvalidContentError('Title must be longer than 5 characters.');
     }
   }
 
@@ -80,10 +82,10 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
   verifyContent(content: string, authorId?: string) {
 
     if (authorId && this.authorId != authorId) {
-      throw new Error('Voce nao tem permissao para mudar o titulo.')
+      throw new NotAllowedError('You do not have permission to change the content.');
     }
     if (!content || content.length < 64) {
-      throw new Error('O conteúdo precisa ser maior que 64 caracteres.')
+      throw new InvalidContentError('Content must be longer than 63 characters.');
     }
   }
 

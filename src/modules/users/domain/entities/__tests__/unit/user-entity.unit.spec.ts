@@ -1,5 +1,6 @@
 import { UserPropsFactory } from "src/tests/factories/user-props.factory";
 import { UserEntity, UserEntityProps } from "../../user.entity";
+import { InvalidContentError } from "src/shared/domain/errors/invalid-content.error";
 
 describe('UserEntity Unit Tests', () => {
   let userProps: UserEntityProps;
@@ -49,7 +50,7 @@ describe('UserEntity Unit Tests', () => {
   });
 
   it('should throw error when updating email with invalid value', () => {
-    expect(() => userEntity.updateEmail('wrongEmail')).toThrow(new Error('Email inválido.'));
+    expect(() => userEntity.updateEmail('wrongEmail')).toThrow(new InvalidContentError('Invalid email address.'));
     expect(userEntity.email).not.toStrictEqual('wrongEmail');
   });
 
@@ -59,7 +60,7 @@ describe('UserEntity Unit Tests', () => {
   });
 
   it('should throw error when updating password with less than 8 characters', () => {
-    expect(() => userEntity.updatePassword('test')).toThrow(new Error('A senha deve conter no minimo 8 caracteres.'));
+    expect(() => userEntity.updatePassword('test')).toThrow(new InvalidContentError('Password must be at least 8 characters long.'));
     expect(userEntity.password).not.toStrictEqual('test');
   });
 
@@ -69,7 +70,7 @@ describe('UserEntity Unit Tests', () => {
   });
 
   it('should throw error when updating username with less than 6 characters', () => {
-    expect(() => userEntity.upatedUsername('aaa')).toThrow(new Error('O username deve conter no minimo 6 caracteres.'));
+    expect(() => userEntity.upatedUsername('aaa')).toThrow(new InvalidContentError('Username must be at least 6 characters long.'));
     expect(userEntity.username).not.toStrictEqual('aaa');
   });
 });

@@ -1,4 +1,6 @@
 import { BaseEntity } from "src/shared/domain/entities/base.entity";
+import { InvalidContentError } from "src/shared/domain/errors/invalid-content.error";
+import { NotAllowedError } from "src/shared/domain/errors/not-allowed.error";
 
 export interface CommentEntityProps {
   authorId: string;
@@ -46,19 +48,19 @@ export class CommentEntity extends BaseEntity<CommentEntityProps> {
   private verifyContent(content: string, authorId?: string) {
 
     if (authorId && this.authorId !== authorId) {
-      throw new Error("You are not allowed to update this comment.");
+      throw new NotAllowedError("You are not allowed to update this comment.");
     }
 
     if (!content?.trim()) {
-      throw new Error("Comment must have content.");
+      throw new InvalidContentError("Comment must have content.");
     }
 
     if (content.length < 4) {
-      throw new Error("Comment must be at least 4 characters long.");
+      throw new InvalidContentError("Comment must be at least 4 characters long.");
     }
 
     if (content.length > 512) {
-      throw new Error("Comment must be at most 512 characters long.");
+      throw new InvalidContentError("Comment must be at most 512 characters long.");
     }
   }
   
