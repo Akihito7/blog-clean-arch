@@ -18,6 +18,8 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
     this._props.createdAt = _props.createdAt ?? new Date();
     this._props.updatedAt = _props.updatedAt ?? null as any;
     this._props.likes = _props.likes ?? 0;
+
+    
   };
 
   get id(): string {

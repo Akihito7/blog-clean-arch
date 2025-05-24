@@ -6,6 +6,7 @@ export class
   PostRepositoryInMemory
   extends BaseRepositoryInMemory<PostEntity>
   implements PostRepositoryInterface {
+    
   findByTags(tags: string[]): PostEntity[] {
     return this.items.filter(post => post.tags?.some(tag => tags.includes(tag)));
   }
