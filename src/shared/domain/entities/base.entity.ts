@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export abstract class BaseEntity<PropsType> {
+export abstract class BaseEntity<PropsType = any> {
   protected _id: string;
   protected _props: PropsType;
 

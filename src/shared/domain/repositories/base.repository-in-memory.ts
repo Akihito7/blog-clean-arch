@@ -1,8 +1,9 @@
 import { BaseEntity } from "../entities/base.entity";
-import { BaseRepository } from "./base-repository";
+import { BaseRepository } from "./base.repository";
 
-export abstract class BaseRepositoryInMemory<Data extends BaseEntity<Data>> implements BaseRepository<Data> {
-  private items: Data[] = [];
+
+export abstract class BaseRepositoryInMemory<Data extends BaseEntity> implements BaseRepository<Data> {
+  protected items: Data[] = [];
 
   findById(id: string) {
     const item = this.items.find(item => item.id.toString() === id.toString());
