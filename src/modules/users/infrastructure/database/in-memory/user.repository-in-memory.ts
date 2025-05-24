@@ -1,10 +1,11 @@
+import { UserEntity } from "src/modules/users/domain/entities/user.entity";
+import { UserRepositoryInterface } from "src/modules/users/domain/repositories/user.repository.interface";
 import { BaseRepositoryInMemory } from "src/shared/domain/repositories/base.repository-in-memory";
-import { UserEntity } from "../../../../modules/users/domain/entities/user.entity";
-import { UserRepository } from "src/modules/users/domain/repositories/user.repository.interface";
+
 
 export class UserRepositoryInMemory
   extends BaseRepositoryInMemory<UserEntity>
-  implements UserRepository {
+  implements UserRepositoryInterface {
 
   findByEmail(email: string): UserEntity | null {
     const emailExists = this.emailExists(email);
@@ -17,5 +18,5 @@ export class UserRepositoryInMemory
   emailExists(email: string): boolean {
     return this.items.some(item => item.email === email);
   }
-  
+
 }
