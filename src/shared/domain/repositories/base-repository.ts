@@ -1,7 +1,7 @@
 export interface BaseRepository<Data = any> {
-  findById(): Data | null;
+  findById(id : string): Data | null;
   findMany(): Data[];
-  insert(props: Data): void;
-  update(props: Date): void;
-  delete(id: string): void;
+  insert(entity: Data): void;
+  update(entity: Data): void;
+  delete(entity: string): void;
 }
