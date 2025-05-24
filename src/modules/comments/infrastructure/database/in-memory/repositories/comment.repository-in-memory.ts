@@ -9,8 +9,9 @@ export class CommentRepositoryInMemory
   findByAuthor(authorId: string): CommentEntity[] {
     return this.items.filter(comment => comment.authorId === authorId)
   }
+
   findByContent(content: string): CommentEntity[] {
-    return this.items.filter(comment => comment.content.includes(content))
+    return this.items.filter(comment => comment.content.toLowerCase().includes(content.toLowerCase()))
   }
 
 }

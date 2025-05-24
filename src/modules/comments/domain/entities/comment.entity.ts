@@ -3,7 +3,7 @@ import { BaseEntity } from "src/shared/domain/entities/base.entity";
 export interface CommentEntityProps {
   authorId: string;
   content: string;
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt?: Date;
   likes?: number;
 };
@@ -26,7 +26,7 @@ export class CommentEntity extends BaseEntity<CommentEntityProps> {
   }
 
   get createdAt(): Date {
-    return this._props.createdAt;
+    return this._props.createdAt!;
   }
 
   get updatedAt(): Date {
