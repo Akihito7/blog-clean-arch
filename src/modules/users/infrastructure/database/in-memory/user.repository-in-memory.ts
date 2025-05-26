@@ -7,15 +7,15 @@ export class UserRepositoryInMemory
   extends BaseRepositoryInMemory<UserEntity>
   implements UserRepositoryInterface {
 
-  findByEmail(email: string): UserEntity | null {
-    const emailExists = this.emailExists(email);
+  async findByEmail(email: string): Promise<UserEntity | null> {
+    const emailExists = await this.emailExists(email);
 
     if (!emailExists) throw new Error(`User with this email ${email} not found`);
 
     return this.items.find(item => item.email === email)!
   }
 
-  emailExists(email: string): boolean {
+  async emailExists(email: string): Promise<boolean> {
     return this.items.some(item => item.email === email);
   }
 

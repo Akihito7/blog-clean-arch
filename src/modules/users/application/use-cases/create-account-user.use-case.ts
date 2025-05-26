@@ -26,10 +26,10 @@ interface Output {
 
 
 export class CreateAccountUser implements BaseUseCaseInterface<Input, Output> {
+
   constructor(
     private readonly userRepository: UserRepositoryInterface,
     private readonly hashProvider: HashProviderInterface
-
   ) { }
 
   async execute(input: Input): Promise<Output> {

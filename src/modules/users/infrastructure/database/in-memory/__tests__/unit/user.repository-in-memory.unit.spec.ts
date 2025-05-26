@@ -15,23 +15,23 @@ describe('UserRepositoryInMemory unit tests', () => {
     SUT['items'] = [entity];
   });
 
-  it('should return the correct user when email exists', () => {
-    const user = SUT.findByEmail(entity.email);
+  it('should return the correct user when email exists', async () => {
+    const user = await SUT.findByEmail(entity.email);
     expect(user).toBeDefined();
     expect(user!.toJson()).toStrictEqual(entity.toJson());
   });
 
-  it('should throw an error when trying to find a user by a non-existent email', () => {
-    expect(() => SUT.findByEmail('emailFake')).toThrow(new Error(`User with this email emailFake not found`));
+  it('should throw an error when trying to find a user by a non-existent email', async () => {
+    await expect(SUT.findByEmail('emailFake')).rejects.toThrow(new Error(`User with this email emailFake not found`));
   });
 
-  it('should return true when checking if an existing email exists', () => {
-    const emailExists = SUT.emailExists(entity.email);
+  it('should return true when checking if an existing email exists', async () => {
+    const emailExists = await SUT.emailExists(entity.email);
     expect(emailExists).toBeTruthy();
   });
 
-  it('should return false when checking if a non-existent email exists', () => {
-    const emailExists = SUT.emailExists('emailFake');
+  it('should return false when checking if a non-existent email exists', async () => {
+    const emailExists = await SUT.emailExists('emailFake');
     expect(emailExists).toBeFalsy();
   });
 });
