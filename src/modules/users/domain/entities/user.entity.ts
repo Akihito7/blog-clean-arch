@@ -61,6 +61,11 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
     this._updatedAt = new Date();
   }
 
+  update({ name, username }: { name: string, username: string }) {
+    this._name = name;
+    this._username = username;
+  }
+
   private verifyEmail(email: string) {
     if (!email.includes('@')) {
       throw new InvalidContentError('Invalid email address.');
