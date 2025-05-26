@@ -14,8 +14,9 @@ export abstract class BaseRepositoryInMemory<Data extends BaseEntity> implements
     return this.items;
   }
 
-  insert(entity: Data): void {
+  async insert(entity: Data): Promise<Data> {
     this.items.push(entity);
+    return entity
   }
 
   update(entity: Data): Data {
