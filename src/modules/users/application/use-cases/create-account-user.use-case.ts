@@ -2,7 +2,7 @@ import { BaseUseCaseInterface } from "src/shared/application/use-cases/base-use-
 import { UserRepositoryInterface } from "../../domain/repositories/user.repository.interface";
 import { ConflictError } from "src/shared/domain/errors/conflict.error";
 import { UserEntity } from "../../domain/entities/user.entity";
-import { HashProviderInterface } from "./providers/hash-provider.interface";
+import { HashProviderInterface } from "../providers/hash-provider.interface";
 
 
 interface Input {
