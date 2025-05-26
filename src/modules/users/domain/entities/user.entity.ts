@@ -64,6 +64,7 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
   update({ name, username }: { name: string, username: string }) {
     this._name = name;
     this._username = username;
+    this._updatedAt = new Date();
   }
 
   private verifyEmail(email: string) {
