@@ -89,7 +89,7 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
     }
   }
 
-  updateTags(tags: string[]) {
+  updateTags(tags: string[], authorId: string) {
     this._props.tags = tags;
     this._props.updatedAt = new Date();
   }
