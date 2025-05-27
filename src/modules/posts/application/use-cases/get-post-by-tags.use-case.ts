@@ -1,9 +1,13 @@
 import { BaseUseCaseInterface } from "src/shared/application/use-cases/base-use-case";
 import { PostRepositoryInterface } from "../../domain/repositories/post.repository.interface";
 
-export namespace GetManyPost {
+export namespace GetPostByTags {
 
   export type Output = Post[]
+
+  interface Input {
+    tags: string[]
+  };
 
   type Post = {
     id: string;
@@ -16,12 +20,15 @@ export namespace GetManyPost {
     likes?: number;
   }
 
-  export class UseCase implements BaseUseCaseInterface<any, Output> {
+  export class UseCase implements BaseUseCaseInterface<Input, Output> {
 
     constructor(private readonly postRepository: PostRepositoryInterface) { }
 
-    async execute(): Promise<Output> {
-      const posts = await this.postRepository.findMany();
+    async execute(input: Input): Promise<Output> {
+
+      const { tags } = input;
+
+      const posts = await this.postRepository.findByTags(tags);
 
       return posts.map(post => post.toJson());
 
