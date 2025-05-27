@@ -12,7 +12,7 @@ describe("CommentRepositoryInMemory unit tests", () => {
   it('should return only comments matching the provided authorId', () => {
     const entityId = uuidv4();
     const commentsEntity = Array.from({ length: 4 }).map((_, index) =>
-      new CommentEntity({ authorId: index < 2 ? entityId : uuidv4(), content: 'hello people', likes: 10 })
+      new CommentEntity({ authorId: index < 2 ? entityId : uuidv4(), content: 'hello people', likes: 10, postId: 'fake' })
     );
 
     SUT['items'] = [...commentsEntity];
@@ -25,7 +25,7 @@ describe("CommentRepositoryInMemory unit tests", () => {
   it('should return comments that contain the given content string (case-insensitive)', () => {
     const elementsContent = ['test bug', 'TEST things', 'nothing includes', 'nothing to test'];
     const commentsEntity = Array.from({ length: 4 }).map((_, index) =>
-      new CommentEntity({ authorId: uuidv4(), content: elementsContent[index], likes: 10 })
+      new CommentEntity({ authorId: uuidv4(), content: elementsContent[index], likes: 10, postId: 'fake' })
     );
 
     SUT['items'] = [...commentsEntity];

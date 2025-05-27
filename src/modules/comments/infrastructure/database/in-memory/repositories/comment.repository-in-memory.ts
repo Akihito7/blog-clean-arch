@@ -6,6 +6,16 @@ export class CommentRepositoryInMemory
   extends BaseRepositoryInMemory<CommentEntity>
   implements CommentRepositoryInterface {
 
+  findByPostId(postId: string): CommentEntity[] {
+    return this.items.filter(comment => comment.props.postId.toLowerCase() === postId.toLowerCase());
+  }
+
+  findByAuthorInPost(authorId: string, postId: string): CommentEntity[] {
+    return this.items.filter(comment =>
+      comment.authorId.toLowerCase() === authorId.toLowerCase()
+      && comment.postId.toLowerCase() === postId.toLowerCase())
+  }
+
   findByAuthor(authorId: string): CommentEntity[] {
     return this.items.filter(comment => comment.authorId === authorId)
   }

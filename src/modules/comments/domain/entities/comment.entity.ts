@@ -3,6 +3,7 @@ import { InvalidContentError } from "src/shared/domain/errors/invalid-content.er
 import { NotAllowedError } from "src/shared/domain/errors/not-allowed.error";
 
 export interface CommentEntityProps {
+  postId: string;
   authorId: string;
   content: string;
   createdAt?: Date;
@@ -17,6 +18,10 @@ export class CommentEntity extends BaseEntity<CommentEntityProps> {
     this._props.createdAt = props.createdAt ?? new Date();
     this._props.updatedAt = props.updatedAt ?? null as any
     this._props.likes = props.likes ?? 0;
+  }
+
+  get postId(): string {
+    return this._props.postId
   }
 
   get authorId(): string {
@@ -63,5 +68,5 @@ export class CommentEntity extends BaseEntity<CommentEntityProps> {
       throw new InvalidContentError("Comment must be at most 512 characters long.");
     }
   }
-  
+
 }
