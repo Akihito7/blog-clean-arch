@@ -5,7 +5,7 @@ export namespace GetPostByTags {
 
   export type Output = Post[]
 
-  interface Input {
+  export interface Input {
     tags: string[]
   };
 
