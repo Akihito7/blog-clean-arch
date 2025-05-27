@@ -87,19 +87,19 @@ describe('PostEntity Unit Tests', () => {
 
   it('should update tags correctly', () => {
     const newTags = ['tech', 'coding', 'test'];
-    postEntity.updateTags(newTags);
+    postEntity.updateTags(newTags, postEntity.authorId);
     expect(postEntity.tags).toStrictEqual(newTags);
   });
 
   it('should update tags to empty array', () => {
     const newTags: string[] = [];
-    postEntity.updateTags(newTags);
+    postEntity.updateTags(newTags, postEntity.authorId);
     expect(postEntity.tags).toStrictEqual([]);
   });
 
   it('should update updatedAt when tags are updated', () => {
     const oldUpdatedAt = postEntity.updatedAt;
-    postEntity.updateTags(['js', 'node']);
+    postEntity.updateTags(['js', 'node'], postEntity.authorId);
     expect(postEntity.updatedAt).not.toEqual(oldUpdatedAt);
   });
 });
