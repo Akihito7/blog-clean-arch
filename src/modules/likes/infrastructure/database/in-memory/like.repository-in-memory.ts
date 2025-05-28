@@ -9,4 +9,7 @@ export class LikeRepositoryInMemory extends BaseRepositoryInMemory<LikeEntity> i
       && likeEntity.postId.toLowerCase() === entity.postId.toLowerCase())
   }
 
+  async findManyByPost(postId: string): Promise<LikeEntity[]> {
+    return this.items.filter(likeEntity => likeEntity.postId.toLowerCase() === postId.toLowerCase())
+  }
 } 
