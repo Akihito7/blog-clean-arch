@@ -1,7 +1,7 @@
 export interface BaseRepository<Data = any> {
-  findById(id: string): Data | null;
-  findMany(): Data[];
+  findById(id: string): Promise<Data | null>;
+  findMany(): Promise<Data[]>;
   insert(entity: Data): Promise<Data>;
-  update(entity: Data): Data;
-  delete(id: string): void;
+  update(entity: Data): Promise<Data>;
+  delete(id: string): Promise<void>;
 }

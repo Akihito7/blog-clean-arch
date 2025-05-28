@@ -1,16 +1,17 @@
 import { BaseEntity } from "../entities/base.entity";
+import { NotFoundError } from "../errors/not-found.error";
 import { BaseRepository } from "./base.repository";
 
 
 export abstract class BaseRepositoryInMemory<Data extends BaseEntity> implements BaseRepository<Data> {
   protected items: Data[] = [];
 
-  findById(id: string) {
+  async findById(id: string) {
     const item = this.items.find(item => item.id.toString() === id.toString());
     return item ?? null
   }
 
-  findMany(): Data[] {
+  async findMany(): Promise<Data[]> {
     return this.items;
   }
 
@@ -19,10 +20,10 @@ export abstract class BaseRepositoryInMemory<Data extends BaseEntity> implements
     return entity
   }
 
-  update(entity: Data): Data {
+  async update(entity: Data): Promise<Data> {
     const entityExists = this.entityExists(entity.id);
 
-    if (!entityExists) throw new Error('Entity not found.');
+    if (!entityExists) throw new NotFoundError('Entity not found.');
 
     const indexItem = this.items.findIndex(item => item.id.toString() === entity.id.toString());
 
@@ -31,10 +32,10 @@ export abstract class BaseRepositoryInMemory<Data extends BaseEntity> implements
     return entity
   };
 
-  delete(id: string): void {
+  async delete(id: string): Promise<void> {
     const entityExists = this.entityExists(id);
 
-    if (!entityExists) throw new Error('Entity not found.');
+    if (!entityExists) throw new NotFoundError('Entity not found.');
 
     const indexUser = this.items.findIndex(item => item.id.toString() === id.toString());
 
