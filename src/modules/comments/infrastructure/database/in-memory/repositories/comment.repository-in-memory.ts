@@ -6,21 +6,21 @@ export class CommentRepositoryInMemory
   extends BaseRepositoryInMemory<CommentEntity>
   implements CommentRepositoryInterface {
 
-  findByPostId(postId: string): CommentEntity[] {
+  async findByPostId(postId: string): Promise<CommentEntity[]> {
     return this.items.filter(comment => comment.props.postId.toLowerCase() === postId.toLowerCase());
   }
 
-  findByAuthorInPost(authorId: string, postId: string): CommentEntity[] {
+  async findByAuthorInPost(authorId: string, postId: string): Promise<CommentEntity[]> {
     return this.items.filter(comment =>
       comment.authorId.toLowerCase() === authorId.toLowerCase()
       && comment.postId.toLowerCase() === postId.toLowerCase())
   }
 
-  findByAuthor(authorId: string): CommentEntity[] {
+  async findByAuthor(authorId: string): Promise<CommentEntity[]> {
     return this.items.filter(comment => comment.authorId === authorId)
   }
 
-  findByContent(content: string): CommentEntity[] {
+  async findByContent(content: string): Promise<CommentEntity[]> {
     return this.items.filter(comment => comment.content.toLowerCase().includes(content.toLowerCase()))
   }
 
