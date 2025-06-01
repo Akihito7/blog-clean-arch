@@ -3,6 +3,7 @@ import { CommentEntityProps } from 'src/modules/comments/domain/entities/comment
 import { v4 as uuidv4 } from 'uuid';
 
 interface CommentFactoryProps {
+  postId: string;
   authorId?: string;
   content?: string;
   createdAt?: Date;
@@ -12,7 +13,8 @@ interface CommentFactoryProps {
 export class CommentPropsFactory {
   static create(props?: CommentFactoryProps): CommentEntityProps {
     return {
-      content: props?.content ?? faker.lorem.paragraphs({ min : 64, max : 244}),
+      postId: props?.postId ?? uuidv4(),
+      content: props?.content ?? faker.lorem.paragraphs({ min: 64, max: 244 }),
       authorId: props?.authorId ?? uuidv4(),
       createdAt: props?.createdAt ?? new Date(),
       updatedAt: props?.updatedAt ?? null as any,
