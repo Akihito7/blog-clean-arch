@@ -41,11 +41,11 @@ export namespace GetCommentAuthorInPost {
 
       const comments = await this.commentRepository.findByAuthorInPost(authorId, postId);
 
-      return this.postToOutput(comments);
+      return this.commentToOutput(comments);
 
     }
 
-    private postToOutput(comments: CommentEntity[]): Output {
+    private commentToOutput(comments: CommentEntity[]): Output {
       return {
         data: comments.map(comment => comment.toJson())
       }
