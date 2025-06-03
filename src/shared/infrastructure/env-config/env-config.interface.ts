@@ -1,3 +1,4 @@
 export interface EnvConfigInterface {
-  getPort(): Number
+  getPort(): Number;
+  getJwtSecret(): string;
 }

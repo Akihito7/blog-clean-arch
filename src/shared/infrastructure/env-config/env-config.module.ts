@@ -11,6 +11,7 @@ console.log(process.env.NODE_ENV)
     isGlobal: true,
     load: [envConfiguration]
   })],
-  providers: [EnvConfigService]
+  providers: [EnvConfigService],
+  exports: [EnvConfigService]
 })
 export class EnvConfigModule { }

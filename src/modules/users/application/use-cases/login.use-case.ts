@@ -1,6 +1,6 @@
 import { BaseUseCaseInterface } from "src/shared/application/use-cases/base-use-case";
 import { UserRepositoryInterface } from "../../domain/repositories/user.repository.interface";
-import { HashProviderInterface } from "../providers/hash-provider.interface";
+import { HashProviderInterface } from "../../../../shared/application/providers/hash-provider.interface";
 import { UnauthorizedError } from "src/shared/domain/errors/unauthorized.error";
 
 export namespace Login {

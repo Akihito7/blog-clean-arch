@@ -8,7 +8,15 @@ export class EnvConfigService implements EnvConfigInterface {
 
   constructor(private readonly configService: ConfigService<envSchemaType>) { }
 
-  getPort(): Number {
-    return Number(this.configService.get<Number>('PORT'))
+  getPort(): number {
+    return this.configService.get<number>('PORT')!
+  }
+
+  getJwtSecret(): string {
+    return this.configService.get<string>('JWT_SECRET')!
+  }
+
+  getJwtExpiresIn(): number {
+    return (this.configService.get<number>('JWT_EXPIRES_IN'))!
   }
 }

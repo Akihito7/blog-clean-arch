@@ -3,6 +3,8 @@ import { z } from "zod";
 
 export const envSchema = z.object({
   PORT: z.coerce.number(),
+  JWT_SECRET: z.string(),
+  JWT_EXPIRES_IN: z.coerce.number(),
 });
 
 export type envSchemaType = z.infer<typeof envSchema>
