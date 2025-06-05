@@ -9,7 +9,6 @@ export interface PostEntityProps {
   createdAt?: Date;
   updatedAt?: Date;
   tags?: string[];
-  likes?: number;
 };
 
 export class PostEntity extends BaseEntity<PostEntityProps> {
@@ -19,9 +18,6 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
     this.verifyContent(_props.content);
     this._props.createdAt = _props.createdAt ?? new Date();
     this._props.updatedAt = _props.updatedAt ?? null as any;
-    this._props.likes = _props.likes ?? 0;
-
-
   };
 
   get id(): string {
@@ -51,11 +47,7 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
   get tags(): string[] | undefined {
     return this._props.tags;
   }
-
-  get likes(): number | undefined {
-    return this._props.likes;
-  }
-
+  
   updateTitle(title: string, authorId: string) {
     this.verifyTitle(title, authorId);
     this._props.title = title;

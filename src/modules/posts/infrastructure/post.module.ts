@@ -12,6 +12,7 @@ import { GetPost } from "../application/use-cases/get-post-by-id.use-case";
 import { GetPostByTags } from "../application/use-cases/get-post-by-tags.use-case";
 import { UpdatePost } from "../application/use-cases/update-post.use-case";
 import { RepositoriesInMemoryModule } from "src/shared/infrastructure/repositories-in-memory/repositories-in-memory.module";
+import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/like.repository.interface";
 
 @Module({
   imports: [RepositoriesInMemoryModule],
@@ -47,22 +48,22 @@ import { RepositoriesInMemoryModule } from "src/shared/infrastructure/repositori
     },
     {
       provide: GetPost.UseCase,
-      useFactory: (postRepository: PostRepositoryInterface) => {
-        return new GetPost.UseCase(postRepository)
+      useFactory: (postRepository: PostRepositoryInterface, likeRepository: LikeRepositoryInterface) => {
+        return new GetPost.UseCase(postRepository, likeRepository)
       },
-      inject: ['PostRepository']
+      inject: ['PostRepository', 'LikeRepository']
     },
     {
       provide: GetPostByTags.UseCase,
       useFactory: (postRepository: PostRepositoryInterface) => {
-        return new GetPost.UseCase(postRepository)
+        return new GetPostByTags.UseCase(postRepository)
       },
       inject: ['PostRepository']
     },
     {
       provide: UpdatePost.UseCase,
       useFactory: (postRepository: PostRepositoryInterface) => {
-        return new GetPost.UseCase(postRepository)
+        return new UpdatePost.UseCase(postRepository)
       },
       inject: ['PostRepository']
     }

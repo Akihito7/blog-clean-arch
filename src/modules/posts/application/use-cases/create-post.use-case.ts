@@ -16,7 +16,7 @@ export namespace CreatePost {
     likes?: number;
   }
 
-  export interface Output  {
+  export interface Output {
     id: string;
     title: string;
     content: string;
@@ -24,7 +24,7 @@ export namespace CreatePost {
     createdAt?: Date;
     updatedAt?: Date;
     tags?: string[];
-    likes?: number;
+    likes: number;
   }
 
   export class UseCase implements BaseUseCaseInterface<Input, Output> {
@@ -46,7 +46,10 @@ export namespace CreatePost {
 
       await this.postRepository.insert(postEntity);
 
-      return postEntity.toJson()
+      return {
+        ...postEntity.toJson(),
+        likes: 0
+      }
     }
   }
 

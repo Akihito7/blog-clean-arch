@@ -2,6 +2,7 @@ import { BaseUseCaseInterface } from "src/shared/application/use-cases/base-use-
 import { PostRepositoryInterface } from "../../domain/repositories/post.repository.interface";
 import { NotFoundError } from "src/shared/domain/errors/not-found.error";
 import { ForbiddenError } from "src/shared/domain/errors/forbidden.error";
+import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/like.repository.interface";
 
 export namespace GetPost {
 
@@ -17,12 +18,15 @@ export namespace GetPost {
     createdAt?: Date;
     updatedAt?: Date;
     tags?: string[];
-    likes?: number;
+    likes: number;
   }
 
   export class UseCase implements BaseUseCaseInterface<Input, Output> {
 
-    constructor(private readonly postRepository: PostRepositoryInterface) { }
+    constructor(
+      private readonly postRepository: PostRepositoryInterface,
+      private readonly likeRepository: LikeRepositoryInterface
+    ) { }
 
     async execute(input: Input): Promise<Output> {
 
@@ -32,7 +36,12 @@ export namespace GetPost {
 
       if (!post) throw new NotFoundError(`Post with this id ${id} not found.`);
 
-      return post.toJson();
+      const likes = await this.likeRepository.countLikeByPost(post.id)
+
+      return {
+        ...post.toJson(),
+        likes: likes
+      }
     }
   }
 

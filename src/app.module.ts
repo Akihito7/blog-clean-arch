@@ -3,9 +3,11 @@ import { EnvConfigModule } from './shared/infrastructure/env-config/env-config.m
 import { AuthModule } from './shared/infrastructure/authentication/auth.module';
 import { UserModule } from './modules/users/infrastructure/user.module';
 import { PostModule } from './modules/posts/infrastructure/post.module';
+import { CommentModule } from './modules/comments/infrastructure/comment.module';
+import { LikeModule } from './modules/likes/infrastructure/like.module';
 
 
 @Module({
-  imports: [EnvConfigModule, AuthModule, UserModule, PostModule]
+  imports: [EnvConfigModule, AuthModule, UserModule, PostModule, CommentModule, LikeModule]
 })
 export class AppModule { }

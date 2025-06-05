@@ -16,7 +16,6 @@ describe("PostRepositoryInMemory unit tests", () => {
         authorId: index < 2 ? authorId : uuidv4(),
         content: 'Desenvolver exige paciência, prática constante e curiosidade e tempo.',
         title: 'testing',
-        likes: 10,
         tags: [],
       })
     );
@@ -34,7 +33,6 @@ describe("PostRepositoryInMemory unit tests", () => {
         authorId: uuidv4(),
         content: 'Desenvolver exige paciência, prática constante e curiosidade e tempo.',
         title: 'testing',
-        likes: 10,
         tags: [],
       })
     );
@@ -52,7 +50,6 @@ describe("PostRepositoryInMemory unit tests", () => {
         authorId: uuidv4(),
         content: 'Desenvolver exige paciência, prática constante e curiosidade e tempo.',
         title: titles[index],
-        likes: 10,
         tags: [],
       })
     );
@@ -70,7 +67,6 @@ describe("PostRepositoryInMemory unit tests", () => {
         authorId: uuidv4(),
         content: 'Desenvolver exige paciência, prática constante e curiosidade e tempo.',
         title: 'valid title',
-        likes: 10,
         tags: [],
       })
     );
@@ -89,7 +85,6 @@ describe("PostRepositoryInMemory unit tests", () => {
         authorId: uuidv4(),
         content: 'Desenvolver exige paciência, prática constante e curiosidade e tempo.',
         title: 'how to fix',
-        likes: 10,
         tags: tag,
       })
     );
@@ -111,7 +106,6 @@ describe("PostRepositoryInMemory unit tests", () => {
         authorId: uuidv4(),
         content: 'Desenvolver exige paciência, prática constante e curiosidade e tempo.',
         title: 'how to fix',
-        likes: 10,
         tags: tag,
       })
     );

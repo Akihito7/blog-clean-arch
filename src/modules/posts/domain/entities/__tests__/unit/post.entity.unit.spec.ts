@@ -49,10 +49,6 @@ describe('PostEntity Unit Tests', () => {
     expect(postEntity.tags).toStrictEqual(postEntityProps.tags);
   });
 
-  it('should return correct likes', () => {
-    expect(postEntity.likes).toStrictEqual(postEntityProps.likes);
-  });
-
   it('should update title with valid data and correct authorId', () => {
     postEntity.updateTitle('newTitle', postEntity.authorId);
     expect(postEntity.title).toStrictEqual('newTitle');

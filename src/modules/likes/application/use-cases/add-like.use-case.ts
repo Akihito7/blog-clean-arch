@@ -32,6 +32,8 @@ export namespace AddLike {
 
       const postExists = await this.postRepository.findById(postId);
 
+      postExists?.updateContent
+
       if (!postExists) throw new NotFoundError('Post not found.')
 
       const likeEntity = new LikeEntity({ authorId, postId });

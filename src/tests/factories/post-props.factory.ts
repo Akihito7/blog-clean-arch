@@ -13,8 +13,7 @@ export class PostPropsFactory {
       tags: faker.helpers.arrayElements(
         ['tech', 'life', 'health', 'sports', 'music', 'finance'],
         faker.number.int({ min: 1, max: 3 })
-      ),
-      likes: props?.likes ?? faker.number.int({ min: 0, max: 1000 })
+      )
     }
   }
 }
