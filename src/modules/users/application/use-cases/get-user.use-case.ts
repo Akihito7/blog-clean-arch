@@ -1,6 +1,7 @@
 import { BaseUseCaseInterface } from "src/shared/application/use-cases/base-use-case";
 import { UserRepositoryInMemory } from "../../infrastructure/database/in-memory/user.repository-in-memory";
 import { NotFoundError } from "src/shared/domain/errors/not-found.error";
+import { UserRepositoryInterface } from "../../domain/repositories/user.repository.interface";
 
 export namespace GetUser {
   export interface Input {
@@ -19,7 +20,7 @@ export namespace GetUser {
 
 
   export class UseCase implements BaseUseCaseInterface<Input, Output> {
-    constructor(private readonly userRepository: UserRepositoryInMemory) { }
+    constructor(private readonly userRepository: UserRepositoryInterface) { }
 
     async execute(input: Input): Promise<Output> {
       const { id } = input;

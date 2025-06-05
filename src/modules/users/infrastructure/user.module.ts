@@ -8,6 +8,7 @@ import { HashProviderInterface } from "src/shared/application/providers/hash-pro
 import { Login } from "../application/use-cases/login.use-case";
 import { AuthModule } from "src/shared/infrastructure/authentication/auth.module";
 import { EnvConfigService } from "src/shared/infrastructure/env-config/env-config.service";
+import { GetUser } from "../application/use-cases/get-user.use-case";
 
 @Module({
   imports: [AuthModule],
@@ -34,6 +35,13 @@ import { EnvConfigService } from "src/shared/infrastructure/env-config/env-confi
         return new Login.UseCase(userRepository, hashProvider)
       },
       inject: ['UserRepository', 'HashProvider']
+    },
+    {
+      provide: GetUser.UseCase,
+      useFactory: (userRepository: UserRepositoryInterface) => {
+        return new GetUser.UseCase(userRepository)
+      },
+      inject: ['UserRepository']
     },
     EnvConfigService
   ]
