@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { CommentRepositoryInMemory } from "src/modules/comments/infrastructure/database/in-memory/repositories/comment.repository-in-memory";
 import { LikeRepositoryInMemory } from "src/modules/likes/infrastructure/database/in-memory/like.repository-in-memory";
 import { PostRepositoryInMemory } from "src/modules/posts/infrastructure/database/in-memory/repositories/post.repository-in-memory";
 import { UserRepositoryInMemory } from "src/modules/users/infrastructure/database/in-memory/user.repository-in-memory";
@@ -17,7 +18,11 @@ import { UserRepositoryInMemory } from "src/modules/users/infrastructure/databas
       provide: 'LikeRepository',
       useClass: LikeRepositoryInMemory
     },
+    {
+      provide: 'CommentRepository',
+      useClass: CommentRepositoryInMemory
+    },
   ],
-  exports: ['PostRepository', 'UserRepository', 'LikeRepository']
+  exports: ['PostRepository', 'UserRepository', 'LikeRepository', 'CommentRepository']
 })
 export class RepositoriesInMemoryModule { }
