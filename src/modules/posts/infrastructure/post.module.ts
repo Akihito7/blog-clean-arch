@@ -13,6 +13,7 @@ import { GetPostByTags } from "../application/use-cases/get-post-by-tags.use-cas
 import { UpdatePost } from "../application/use-cases/update-post.use-case";
 import { RepositoriesInMemoryModule } from "src/shared/infrastructure/repositories-in-memory/repositories-in-memory.module";
 import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/like.repository.interface";
+import { CommentRepositoryInMemory } from "src/modules/comments/infrastructure/database/in-memory/repositories/comment.repository-in-memory";
 
 @Module({
   imports: [RepositoriesInMemoryModule],
@@ -48,10 +49,10 @@ import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/l
     },
     {
       provide: GetPost.UseCase,
-      useFactory: (postRepository: PostRepositoryInterface, likeRepository: LikeRepositoryInterface) => {
-        return new GetPost.UseCase(postRepository, likeRepository)
+      useFactory: (postRepository: PostRepositoryInterface, likeRepository: LikeRepositoryInterface, commentRepository: CommentRepositoryInMemory) => {
+        return new GetPost.UseCase(postRepository, likeRepository, commentRepository)
       },
-      inject: ['PostRepository', 'LikeRepository']
+      inject: ['PostRepository', 'LikeRepository', 'CommentRepository']
     },
     {
       provide: GetPostByTags.UseCase,

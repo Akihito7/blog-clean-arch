@@ -3,6 +3,7 @@ import { PostRepositoryInterface } from "../../domain/repositories/post.reposito
 import { NotFoundError } from "src/shared/domain/errors/not-found.error";
 import { ForbiddenError } from "src/shared/domain/errors/forbidden.error";
 import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/like.repository.interface";
+import { CommentRepositoryInterface } from "src/modules/comments/domain/repositories/comment.repository.interface";
 
 export namespace GetPost {
 
@@ -19,13 +20,22 @@ export namespace GetPost {
     updatedAt?: Date;
     tags?: string[];
     likes: number;
+    comments: {
+      postId: string;
+      authorId: string;
+      content: string;
+      createdAt?: Date;
+      updatedAt?: Date;
+      likes?: number;
+    }[];
   }
 
   export class UseCase implements BaseUseCaseInterface<Input, Output> {
 
     constructor(
       private readonly postRepository: PostRepositoryInterface,
-      private readonly likeRepository: LikeRepositoryInterface
+      private readonly likeRepository: LikeRepositoryInterface,
+      private readonly commentRepository: CommentRepositoryInterface
     ) { }
 
     async execute(input: Input): Promise<Output> {
@@ -38,9 +48,12 @@ export namespace GetPost {
 
       const likes = await this.likeRepository.countLikeByPost(post.id)
 
+      const comments = await this.commentRepository.findByPostId(post.id)
+
       return {
         ...post.toJson(),
-        likes: likes
+        likes: likes,
+        comments: comments.map(comment => comment.toJson())
       }
     }
   }
