@@ -1,4 +1,4 @@
-import { Delete, Get, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { PostController } from "./post.controller";
 import { PostRepositoryInMemory } from "./database/in-memory/repositories/post.repository-in-memory";
 import { UserRepositoryInMemory } from "src/modules/users/infrastructure/database/in-memory/user.repository-in-memory";
@@ -11,18 +11,12 @@ import { GetManyPostByAuthorId } from "../application/use-cases/get-many-post-by
 import { GetPost } from "../application/use-cases/get-post-by-id.use-case";
 import { GetPostByTags } from "../application/use-cases/get-post-by-tags.use-case";
 import { UpdatePost } from "../application/use-cases/update-post.use-case";
+import { RepositoriesInMemoryModule } from "src/shared/infrastructure/repositories-in-memory/repositories-in-memory.module";
 
 @Module({
+  imports: [RepositoriesInMemoryModule],
   controllers: [PostController],
   providers: [
-    {
-      provide: 'PostRepository',
-      useClass: PostRepositoryInMemory
-    },
-    {
-      provide: 'UserRepository',
-      useClass: UserRepositoryInMemory
-    },
     {
       provide: CreatePost.UseCase,
       useFactory: (postRepository: PostRepositoryInterface, userRepository: UserRepositoryInterface) => {

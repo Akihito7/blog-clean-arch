@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { EnvConfigModule } from './shared/infrastructure/env-config/env-config.module';
 import { AuthModule } from './shared/infrastructure/authentication/auth.module';
 import { UserModule } from './modules/users/infrastructure/user.module';
-import { PostController } from './modules/posts/infrastructure/post.controller';
+import { PostModule } from './modules/posts/infrastructure/post.module';
 
 
 @Module({
-  imports: [EnvConfigModule, AuthModule, UserModule, PostController]
+  imports: [EnvConfigModule, AuthModule, UserModule, PostModule]
 })
 export class AppModule { }

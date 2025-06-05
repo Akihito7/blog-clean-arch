@@ -9,15 +9,12 @@ import { Login } from "../application/use-cases/login.use-case";
 import { AuthModule } from "src/shared/infrastructure/authentication/auth.module";
 import { EnvConfigService } from "src/shared/infrastructure/env-config/env-config.service";
 import { GetUser } from "../application/use-cases/get-user.use-case";
+import { RepositoriesInMemoryModule } from "src/shared/infrastructure/repositories-in-memory/repositories-in-memory.module";
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule, RepositoriesInMemoryModule],
   controllers: [UserController],
   providers: [
-    {
-      provide: 'UserRepository',
-      useClass: UserRepositoryInMemory
-    },
     {
       provide: 'HashProvider',
       useClass: BcryptProvider
