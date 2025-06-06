@@ -9,7 +9,7 @@ export namespace UpdatePost {
     id: string;
     title: string;
     content: string;
-    tags: string[];
+    tags?: string[];
     requesterId: string;
   }
 
@@ -34,7 +34,7 @@ export namespace UpdatePost {
 
       post.updateTitle(title, requesterId);
       post.updateContent(content, requesterId);
-      post.updateTags(tags, requesterId);
+      if(tags) post.updateTags(tags, requesterId);
 
       await this.postRepository.update(post);
     }
