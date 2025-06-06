@@ -2,6 +2,7 @@ import { BaseUseCaseInterface } from "src/shared/application/use-cases/base-use-
 import { CommentRepositoryInMemory } from "../../infrastructure/database/in-memory/repositories/comment.repository-in-memory";
 import { BadRequestError } from "src/shared/domain/errors/bad-request.error";
 import { CommentOutputMapper } from "./mappers/comment-output.mapper";
+import { CommentRepositoryInterface } from "../../domain/repositories/comment.repository.interface";
 
 export namespace GetCommentByContent {
   export interface Input {
@@ -10,7 +11,7 @@ export namespace GetCommentByContent {
 
   export class UseCase implements BaseUseCaseInterface<Input, CommentOutputMapper.Output> {
 
-    constructor(private readonly commentRepository: CommentRepositoryInMemory) { }
+    constructor(private readonly commentRepository: CommentRepositoryInterface) { }
 
     async execute(input: Input): Promise<CommentOutputMapper.Output> {
 
