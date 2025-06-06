@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Inject, Post } from "@nestjs/common";
 import { CreateAccountUser } from "../application/use-cases/create-account-user.use-case";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { Login } from "../application/use-cases/login.use-case";
@@ -23,6 +23,12 @@ export class UserController {
 
   @Post('login')
   async login(@Body() body: LoginDTO) {
+    const result = await this.loginUseCase.execute(body);
+    return this.authService.generateToken(result.id)
+  }
+
+  @Delete()
+  async delete(@Body() body: LoginDTO) {
     const result = await this.loginUseCase.execute(body);
     return this.authService.generateToken(result.id)
   }

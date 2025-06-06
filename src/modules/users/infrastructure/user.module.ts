@@ -10,6 +10,9 @@ import { AuthModule } from "src/shared/infrastructure/authentication/auth.module
 import { EnvConfigService } from "src/shared/infrastructure/env-config/env-config.service";
 import { GetUser } from "../application/use-cases/get-user.use-case";
 import { RepositoriesInMemoryModule } from "src/shared/infrastructure/repositories-in-memory/repositories-in-memory.module";
+import { DeleteUser } from "../application/use-cases/delete-user.use-case";
+import { UpdateUser } from "../application/use-cases/update-user.use-case";
+import { UpdateUserPassword } from "../application/use-cases/update-user-password.use-case";
 
 @Module({
   imports: [AuthModule, RepositoriesInMemoryModule],
@@ -39,6 +42,27 @@ import { RepositoriesInMemoryModule } from "src/shared/infrastructure/repositori
         return new GetUser.UseCase(userRepository)
       },
       inject: ['UserRepository']
+    },
+    {
+      provide: DeleteUser.UseCase,
+      useFactory: (userRepository: UserRepositoryInterface) => {
+        return new DeleteUser.UseCase(userRepository)
+      },
+      inject: ['UserRepository']
+    },
+    {
+      provide: UpdateUser.UseCase,
+      useFactory: (userRepository: UserRepositoryInterface) => {
+        return new UpdateUser.UseCase(userRepository)
+      },
+      inject: ['UserRepository']
+    },
+    {
+      provide: UpdateUserPassword.UseCase,
+      useFactory: (userRepository: UserRepositoryInterface, hashProvider: HashProviderInterface) => {
+        return new UpdateUserPassword.UseCase(userRepository, hashProvider)
+      },
+      inject: ['UserRepository', 'HashProvider']
     },
     EnvConfigService
   ]
