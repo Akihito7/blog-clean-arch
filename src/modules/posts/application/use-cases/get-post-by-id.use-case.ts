@@ -1,9 +1,9 @@
 import { BaseUseCaseInterface } from "src/shared/application/use-cases/base-use-case";
 import { PostRepositoryInterface } from "../../domain/repositories/post.repository.interface";
 import { NotFoundError } from "src/shared/domain/errors/not-found.error";
-import { ForbiddenError } from "src/shared/domain/errors/forbidden.error";
 import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/like.repository.interface";
 import { CommentRepositoryInterface } from "src/modules/comments/domain/repositories/comment.repository.interface";
+import { UserRepositoryInterface } from "src/modules/users/domain/repositories/user.repository.interface";
 
 export namespace GetPost {
 
@@ -12,6 +12,7 @@ export namespace GetPost {
   }
 
   export interface Output {
+    authorUsername: string
     id: string;
     title: string;
     content: string;
@@ -21,6 +22,7 @@ export namespace GetPost {
     tags?: string[];
     likes: number;
     comments: {
+      authorUsername: string
       postId: string;
       authorId: string;
       content: string;
@@ -35,7 +37,8 @@ export namespace GetPost {
     constructor(
       private readonly postRepository: PostRepositoryInterface,
       private readonly likeRepository: LikeRepositoryInterface,
-      private readonly commentRepository: CommentRepositoryInterface
+      private readonly commentRepository: CommentRepositoryInterface,
+      private readonly userRepository: UserRepositoryInterface
     ) { }
 
     async execute(input: Input): Promise<Output> {
@@ -46,15 +49,29 @@ export namespace GetPost {
 
       if (!post) throw new NotFoundError(`Post with this id ${id} not found.`);
 
+      const author = await this.userRepository.findById(post.authorId);
+
+      if (!author) throw new NotFoundError("Author of post not found");
+
       const likes = await this.likeRepository.countLikeByPost(post.id)
 
-      const comments = await this.commentRepository.findByPostId(post.id)
+      const comments = await this.commentRepository.findByPostId(post.id);
+
+      const commentsWithAuthorName = await Promise.all(comments.map(async comment => {
+        const author = await this.userRepository.findById(comment.authorId);
+        return {
+          authorUsername: author ? author.username : 'unknow',
+          ...comment.toJson()
+        }
+      }))
 
       return {
+        authorUsername: author.username,
         ...post.toJson(),
-        likes: likes,
-        comments: comments.map(comment => comment.toJson())
+        comments: commentsWithAuthorName,
+        likes
       }
+
     }
   }
 

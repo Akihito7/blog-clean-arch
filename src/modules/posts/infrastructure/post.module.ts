@@ -54,10 +54,14 @@ import { CommentRepositoryInMemory } from "src/modules/comments/infrastructure/d
     },
     {
       provide: GetPost.UseCase,
-      useFactory: (postRepository: PostRepositoryInterface, likeRepository: LikeRepositoryInterface, commentRepository: CommentRepositoryInMemory) => {
-        return new GetPost.UseCase(postRepository, likeRepository, commentRepository)
+      useFactory: (postRepository: PostRepositoryInterface,
+        likeRepository: LikeRepositoryInterface,
+        commentRepository: CommentRepositoryInMemory,
+        userRepository: UserRepositoryInMemory
+      ) => {
+        return new GetPost.UseCase(postRepository, likeRepository, commentRepository, userRepository)
       },
-      inject: ['PostRepository', 'LikeRepository', 'CommentRepository']
+      inject: ['PostRepository', 'LikeRepository', 'CommentRepository', 'UserRepository']
     },
     {
       provide: GetPostByTags.UseCase,
