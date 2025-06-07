@@ -7,9 +7,12 @@ import { PostRepositoryInterface } from "src/modules/posts/domain/repositories/p
 import { LikeRepositoryInterface } from "../domain/repositories/like.repository.interface";
 import { CheckLike } from "../application/use-cases/check-like.use-case";
 import { ListLike } from "../application/use-cases/list-like.use-case";
-import { UserRepositoryInMemory } from "src/modules/users/infrastructure/database/in-memory/user.repository-in-memory";
 import { RemoveLike } from "../application/use-cases/remove-like.use-case";
 import { GetLikeByPostAndAuthor } from "../application/use-cases/get-like-by-post-and-author";
+import { AddLikeToCommentUseCase } from "../application/use-cases/add-like-to-comment.use-case";
+import { CommentRepositoryInMemory } from "src/modules/comments/infrastructure/database/in-memory/repositories/comment.repository-in-memory";
+import { GetLikeByCommentAndAuthor } from "../application/use-cases/get-like-by-comment-and-author";
+import { CheckCommentLike } from "../application/use-cases/check-like-comment";
 
 @Module({
   imports: [RepositoriesInMemoryModule],
@@ -47,6 +50,29 @@ import { GetLikeByPostAndAuthor } from "../application/use-cases/get-like-by-pos
       provide: GetLikeByPostAndAuthor.UseCase,
       useFactory: (likeRepository: LikeRepositoryInterface) => {
         return new GetLikeByPostAndAuthor.UseCase(likeRepository)
+      },
+      inject: ['LikeRepository']
+    },
+    {
+      provide: AddLikeToCommentUseCase.UseCase,
+      useFactory: (likeRepository: LikeRepositoryInterface, commentRepository: CommentRepositoryInMemory) => {
+        return new AddLikeToCommentUseCase.UseCase(likeRepository, commentRepository)
+      },
+      inject: ['LikeRepository', 'CommentRepository']
+    },
+
+    {
+      provide: GetLikeByCommentAndAuthor.UseCase,
+      useFactory: (likeRepository: LikeRepositoryInterface) => {
+        return new GetLikeByCommentAndAuthor.UseCase(likeRepository)
+      },
+      inject: ['LikeRepository']
+    },
+
+    {
+      provide: CheckCommentLike.UseCase,
+      useFactory: (likeRepository: LikeRepositoryInterface) => {
+        return new CheckCommentLike.UseCase(likeRepository)
       },
       inject: ['LikeRepository']
     },

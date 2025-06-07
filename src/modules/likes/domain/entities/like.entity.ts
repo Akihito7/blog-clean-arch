@@ -3,9 +3,10 @@ import { ConflictError } from "src/shared/domain/errors/conflict.error";
 import { ForbiddenError } from "src/shared/domain/errors/forbidden.error";
 
 interface LikeEntityProps {
-  postId: string;
+  postId?: string;
   authorId: string;
   createdAt?: Date;
+  commentId?: string;
 }
 
 export class LikeEntity extends BaseEntity {
@@ -15,8 +16,12 @@ export class LikeEntity extends BaseEntity {
     this._props.createdAt = _props.createdAt ?? new Date();
   }
 
-  get postId(): string {
+  get postId(): string | undefined {
     return this._props.postId
+  }
+
+  get commentId(): string | undefined {
+    return this._props.commentId
   }
 
   get authorId(): string {
@@ -27,14 +32,15 @@ export class LikeEntity extends BaseEntity {
     return this._props.createdAt!;
   }
 
-  static validate({ postId, authorId }: LikeEntityProps) {
+  static validate({ postId, authorId, commentId }: LikeEntityProps) {
     if (!authorId) {
       throw new ForbiddenError('Does not can give like without an account.')
     }
 
-    if (!postId) {
+    if (!postId && !commentId) {
       throw new ConflictError('PostId is not provided.')
     }
+
   }
 
 }

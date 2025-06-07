@@ -58,10 +58,12 @@ export namespace GetPost {
       const comments = await this.commentRepository.findByPostId(post.id);
 
       const commentsWithAuthorName = await Promise.all(comments.map(async comment => {
+        const likesCount = await this.likeRepository.countLikeByCommment(comment.id)
         const author = await this.userRepository.findById(comment.authorId);
         return {
           authorUsername: author ? author.username : 'unknow',
-          ...comment.toJson()
+          ...comment.toJson(),
+          likes: likesCount
         }
       }))
 
