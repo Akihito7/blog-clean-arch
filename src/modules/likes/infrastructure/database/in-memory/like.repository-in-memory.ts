@@ -16,4 +16,11 @@ export class LikeRepositoryInMemory extends BaseRepositoryInMemory<LikeEntity> i
   async countLikeByPost(postId: string): Promise<number> {
     return this.items.filter(like => like.postId.toLowerCase() === postId.toLowerCase()).length;
   }
+
+  async getLikeByPostAndAuthor(postId: string, authorId: string): Promise<LikeEntity | undefined> {
+    const like = this.items.find(like =>
+      like.authorId.toLowerCase() === authorId.toLowerCase()
+      && like.postId.toLowerCase() === postId.toLowerCase())
+    return like
+  }
 } 

@@ -5,4 +5,5 @@ export interface LikeRepositoryInterface extends BaseRepository<LikeEntity> {
   exists(entity: LikeEntity): Promise<boolean>
   findManyByPost(postId: string): Promise<LikeEntity[]>
   countLikeByPost(postId: string): Promise<number>
+  getLikeByPostAndAuthor(postId: string, authorId: string): Promise<LikeEntity | undefined>
 }

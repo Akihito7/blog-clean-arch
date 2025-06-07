@@ -9,6 +9,7 @@ import { CheckLike } from "../application/use-cases/check-like.use-case";
 import { ListLike } from "../application/use-cases/list-like.use-case";
 import { UserRepositoryInMemory } from "src/modules/users/infrastructure/database/in-memory/user.repository-in-memory";
 import { RemoveLike } from "../application/use-cases/remove-like.use-case";
+import { GetLikeByPostAndAuthor } from "../application/use-cases/get-like-by-post-and-author";
 
 @Module({
   imports: [RepositoriesInMemoryModule],
@@ -39,6 +40,13 @@ import { RemoveLike } from "../application/use-cases/remove-like.use-case";
       provide: RemoveLike.UseCase,
       useFactory: (likeRepository: LikeRepositoryInterface, userRepository: UserRepositoryInterface) => {
         return new RemoveLike.UseCase(likeRepository)
+      },
+      inject: ['LikeRepository']
+    },
+    {
+      provide: GetLikeByPostAndAuthor.UseCase,
+      useFactory: (likeRepository: LikeRepositoryInterface) => {
+        return new GetLikeByPostAndAuthor.UseCase(likeRepository)
       },
       inject: ['LikeRepository']
     },

@@ -18,7 +18,6 @@ describe("CommentEntity", () => {
 
   it("should default likes to 0 if not provided", () => {
     const props = CommentPropsFactory.create({ likes: undefined });
-    console.log(props.content.length)
     const comment = new CommentEntity({ ...props, content: '1fjsdkfjskdfjs;fjs;fjsd;f', likes: undefined });
 
     expect(comment.likes).toBe(0);

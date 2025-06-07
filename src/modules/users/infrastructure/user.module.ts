@@ -13,6 +13,7 @@ import { RepositoriesInMemoryModule } from "src/shared/infrastructure/repositori
 import { DeleteUser } from "../application/use-cases/delete-user.use-case";
 import { UpdateUser } from "../application/use-cases/update-user.use-case";
 import { UpdateUserPassword } from "../application/use-cases/update-user-password.use-case";
+import { Me } from "../application/use-cases/me.use-case";
 
 @Module({
   imports: [AuthModule, RepositoriesInMemoryModule],
@@ -63,6 +64,13 @@ import { UpdateUserPassword } from "../application/use-cases/update-user-passwor
         return new UpdateUserPassword.UseCase(userRepository, hashProvider)
       },
       inject: ['UserRepository', 'HashProvider']
+    },
+    {
+      provide: Me.UseCase,
+      useFactory: (userRepository: UserRepositoryInterface) => {
+        return new Me.UseCase(userRepository)
+      },
+      inject: ['UserRepository']
     },
     EnvConfigService
   ]

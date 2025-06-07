@@ -36,17 +36,16 @@ export class PostController {
 
   @Inject(UpdatePost.UseCase)
   private readonly updatePostUseCase: UpdatePost.UseCase;
-  
+
+  @Get('/many')
+  async getManyPost() {
+    return this.getManyPostUseCase.execute()
+  }
 
   @Get(':id')
   async getPost(@Param("id") id: string) {
     return this.getPostUseCase.execute({ id })
   };
-
-  @Get('many')
-  async getManyPost() {
-    return this.getManyPostUseCase.execute()
-  }
 
   @Get('by-tags')
   async getPostByTags(@Query() query: QueryGetPostByTags) {
@@ -68,10 +67,12 @@ export class PostController {
   }
 
   @Put(":id")
-  async updatePost(@Req() req, @Body() body: UpdatePostDTO) {
+  async updatePost(@Param() params, @Req() req, @Body() body: UpdatePostDTO) {
+    const postId = params.id
     const userId = req.user.id;
     return this.updatePostUseCase.execute({
       requesterId: userId,
+      id: postId,
       ...body
     })
   }
