@@ -9,7 +9,8 @@ import { UpdateUserDTO } from "./dto/update-user.dto";
 import { UpdateUserPassword } from "../application/use-cases/update-user-password.use-case";
 import { UpdateUserPasswordDTO } from "./dto/update-user-password.dto";
 import { Me } from "../application/use-cases/me.use-case";
-import { AuthGuard } from "src/shared/guards/auth.guard";
+import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
+
 
 @Controller('user')
 export class UserController {

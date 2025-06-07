@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Inject, Param, Post, Req, UseGuards } from "@nestjs/common";
 import { AddLike } from "../application/use-cases/add-like.use-case";
 import { AddLikeDTO } from "./dto/add-like.dto";
-import { AuthGuard } from "src/shared/guards/auth.guard";
 import { CheckLike } from "../application/use-cases/check-like.use-case";
 import { ListLike } from "../application/use-cases/list-like.use-case";
 import { RemoveLike } from "../application/use-cases/remove-like.use-case";
 import { CheckLikeDTO } from "./dto/check-like.dto";
 import { GetLikeByPostAndAuthor } from "../application/use-cases/get-like-by-post-and-author";
+import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 
 
 @UseGuards(AuthGuard)

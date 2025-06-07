@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, Inject, Param, Post, Put, Query, Req, UseGuards } from "@nestjs/common";
-import { AuthGuard } from "src/shared/guards/auth.guard";
 import { CreatePostDTO } from "./dto/create-post.dto";
 import { CreatePost } from "../application/use-cases/create-post.use-case";
 import { GetPost } from "../application/use-cases/get-post-by-id.use-case";
@@ -10,6 +9,8 @@ import { QueryGetPostByTags } from "./dto/get-post-by-tags.dto";
 import { GetPostByTags } from "../application/use-cases/get-post-by-tags.use-case";
 import { UpdatePost } from "../application/use-cases/update-post.use-case";
 import { UpdatePostDTO } from "./dto/update-post.dto";
+import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
+import { Public } from "src/shared/infrastructure/decorators/public";
 
 
 @UseGuards(AuthGuard)
@@ -37,6 +38,7 @@ export class PostController {
   @Inject(UpdatePost.UseCase)
   private readonly updatePostUseCase: UpdatePost.UseCase;
 
+  @Public(true)
   @Get('/many')
   async getManyPost() {
     return this.getManyPostUseCase.execute()

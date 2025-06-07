@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Inject, Param, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { AddComment } from "../application/use-cases/add-comment.use-case";
-import { AuthGuard } from "src/shared/guards/auth.guard";
 import { GetCommentByPost } from "../application/use-cases/get-comment-by-post.use-case";
 import { GetCommentAuthorInPost } from "../application/use-cases/get-comment-author-in-post.use-case";
 import { GetCommentByAuthor } from "../application/use-cases/get-comment-by-author.use-case";
 import { GetCommentByContent } from "../application/use-cases/get-comment-by-content.use-case";
 import { ParamsGetCommentAuthorInPostDTO } from "./dto/get-comment-author-in-post.dto";
 import { QueryCommentByContentDTO } from "./dto/get-comment-by-content.dto";
+import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 
 @UseGuards(AuthGuard)
 @Controller('comment')
