@@ -16,16 +16,23 @@ export class AuthGuard implements CanActivate {
 
     const IS_PUBLIC = this.reflector.get(Public, context.getHandler());
 
-    if (IS_PUBLIC) return true;
-
     const { request, headers } = this.handleHttp(context);
 
-    const { type, token } = this.extractTokenFromHeader(headers);
+    try {
 
-    const userId = await this.validateToken(type, token);
+      const { type, token } = this.extractTokenFromHeader(headers);
 
-    request.user = {
-      id: userId
+      const userId = await this.validateToken(type, token);
+
+      request.user = {
+        id: userId
+      }
+
+    } catch (error) {
+      if (IS_PUBLIC) {
+        return true
+      }
+      throw new UnauthorizedException(error.message ?? 'Token not found.')
     }
 
     return true

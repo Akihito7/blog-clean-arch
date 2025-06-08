@@ -44,9 +44,11 @@ export class PostController {
     return this.getManyPostUseCase.execute()
   }
 
+  @Public(true)
   @Get(':id')
-  async getPost(@Param("id") id: string) {
-    return this.getPostUseCase.execute({ id })
+  async getPost(@Param("id") id: string, @Req() req) {
+    const userId = req?.user?.id
+    return this.getPostUseCase.execute({ id, userId })
   };
 
   @Get('by-tags')
