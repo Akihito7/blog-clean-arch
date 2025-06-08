@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Patch, Post, Put, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put, Req, UseGuards } from "@nestjs/common";
 import { CreateAccountUser } from "../application/use-cases/create-account-user.use-case";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { Login } from "../application/use-cases/login.use-case";
@@ -10,6 +10,7 @@ import { UpdateUserPassword } from "../application/use-cases/update-user-passwor
 import { UpdateUserPasswordDTO } from "./dto/update-user-password.dto";
 import { Me } from "../application/use-cases/me.use-case";
 import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
+import { GetProfile } from "../application/use-cases/get-profile";
 
 
 @Controller('user')
@@ -31,6 +32,9 @@ export class UserController {
 
   @Inject(Me.UseCase)
   private meUseCase: Me.UseCase
+
+  @Inject(GetProfile.UseCase)
+  private getProfileUseCase: GetProfile.UseCase
 
 
   @Post('create')
@@ -74,5 +78,10 @@ export class UserController {
   async me(@Req() req) {
     const userId = req.user.id
     return this.meUseCase.execute({ id: userId })
+  }
+
+  @Get("profile/:username")
+  async getProfile(@Param("username") username) {
+    return this.getProfileUseCase.execute({ username })
   }
 }

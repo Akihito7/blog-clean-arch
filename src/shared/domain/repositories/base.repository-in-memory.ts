@@ -7,7 +7,7 @@ export abstract class BaseRepositoryInMemory<Data extends BaseEntity> implements
   protected items: Data[] = [];
 
   async findById(id: string) {
-    const item = this.items.find(item => item.id.toString() === id.toString());
+    const item = this.items.find(item => item.id.toString() === id?.toString());
     return item ?? null
   }
 

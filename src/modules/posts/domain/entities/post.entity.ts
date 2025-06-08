@@ -12,7 +12,8 @@ export interface PostEntityProps {
 };
 
 export class PostEntity extends BaseEntity<PostEntityProps> {
-  constructor(protected _props: PostEntityProps, id?: string) {
+
+ constructor(protected _props: PostEntityProps, id?: string) {
     super(_props, id);
     this.verifyTitle(_props.title);
     this.verifyContent(_props.content);
@@ -47,7 +48,7 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
   get tags(): string[] | undefined {
     return this._props.tags;
   }
-  
+
   updateTitle(title: string, authorId: string) {
     this.verifyTitle(title, authorId);
     this._props.title = title;

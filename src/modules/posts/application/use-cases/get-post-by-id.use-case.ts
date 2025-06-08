@@ -73,7 +73,6 @@ export namespace GetPost {
         const likedByUser = !!like;
         const likeIdByUser = like?.id ?? null;
 
-
         return {
           authorUsername: author ? author.username : 'unknow',
           likedByUser: likedByUser,

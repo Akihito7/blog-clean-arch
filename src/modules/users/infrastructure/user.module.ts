@@ -14,6 +14,10 @@ import { DeleteUser } from "../application/use-cases/delete-user.use-case";
 import { UpdateUser } from "../application/use-cases/update-user.use-case";
 import { UpdateUserPassword } from "../application/use-cases/update-user-password.use-case";
 import { Me } from "../application/use-cases/me.use-case";
+import { GetProfile } from "../application/use-cases/get-profile";
+import { PostRepositoryInterface } from "src/modules/posts/domain/repositories/post.repository.interface";
+import { CommentRepositoryInterface } from "src/modules/comments/domain/repositories/comment.repository.interface";
+import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/like.repository.interface";
 
 @Module({
   imports: [AuthModule, RepositoriesInMemoryModule],
@@ -71,6 +75,17 @@ import { Me } from "../application/use-cases/me.use-case";
         return new Me.UseCase(userRepository)
       },
       inject: ['UserRepository']
+    },
+    {
+      provide: GetProfile.UseCase,
+      useFactory: (
+        userRepository: UserRepositoryInterface,
+        postRepository: PostRepositoryInterface,
+        commentRepository: CommentRepositoryInterface,
+        likeRepository: LikeRepositoryInterface) => {
+        return new GetProfile.UseCase(userRepository, postRepository, commentRepository, likeRepository)
+      },
+      inject: ['UserRepository', 'PostRepository', 'CommentRepository', 'LikeRepository']
     },
     EnvConfigService
   ]
