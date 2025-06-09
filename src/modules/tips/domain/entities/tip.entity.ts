@@ -1,5 +1,4 @@
 import { BaseEntity } from "src/shared/domain/entities/base.entity";
-
 interface TipEntityInterface {
   title: string;
   content: string;
