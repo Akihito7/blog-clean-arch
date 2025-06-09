@@ -12,59 +12,46 @@ export interface UserEntityProps {
 
 export class UserEntity extends BaseEntity<UserEntityProps> {
 
-  protected _name: string;
-  protected _username: string;
-  protected _email: string;
-  protected _password: string;
-  protected _createdAt?: Date;
-  protected _updatedAt?: Date;
-
-  constructor(props: UserEntityProps, id?: string) {
-    super(props, id);
-    this._name = props.name;
-    this._email = props.email;
-    this._username = props.username;
-    this._password = props.password;
-    this._createdAt = props.createdAt ?? new Date();
-    this._updatedAt = props.updatedAt ?? null as any;
-    this._props.createdAt = props.createdAt ?? new Date();
-    this._props.updatedAt = props.updatedAt ?? null as any;
+  constructor(protected _props: UserEntityProps, id?: string) {
+    super(_props, id);
+    this.props.createdAt = _props.createdAt ?? new Date();
+    this.props.updatedAt = _props.updatedAt ?? null as any;
   }
 
   get name() {
-    return this._name;
+    return this._props.name;
   }
 
   get email() {
-    return this._email;
+    return this._props.email;
   }
 
   get password() {
-    return this._password;
+    return this._props.password;
   }
 
   get username() {
-    return this._username;
+    return this._props.username;
   }
 
   get createdAt() {
-    return this._createdAt;
+    return this._props.createdAt;
   }
 
   get updatedAt() {
-    return this._updatedAt;
+    return this._props.createdAt;
   }
 
   updateEmail(email: string) {
     this.verifyEmail(email);
-    this._email = email;
-    this._updatedAt = new Date();
+    this._props.email = email;
+    this._props.updatedAt = new Date();
   }
 
   update({ name, username }: { name: string, username: string }) {
-    this._name = name;
-    this._username = username;
-    this._updatedAt = new Date();
+    this._props.name = name;
+    this._props.username = username;
+    this._props.updatedAt = new Date();
   }
 
   private verifyEmail(email: string) {
@@ -75,8 +62,8 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
 
   updatePassword(password: string) {
     this.verifyPassword(password);
-    this._password = password;
-    this._updatedAt = new Date();
+    this._props.password = password;
+    this._props.updatedAt = new Date();
   }
 
   private verifyPassword(password: string) {
@@ -87,7 +74,8 @@ export class UserEntity extends BaseEntity<UserEntityProps> {
 
   upatedUsername(username: string) {
     this.verifyUsername(username);
-    this._username = username;
+    this._props.username = username;
+    this._props.updatedAt = new Date();
   }
 
   private verifyUsername(username: string) {

@@ -42,7 +42,9 @@ export namespace UpdateUserPassword {
         throw new UnauthorizedError('Password does not match.')
       }
 
-      user.updatePassword(newPassword);
+      const passwordHashed = await this.hashProvider.generateHash(newPassword);
+      
+      user.updatePassword(passwordHashed);
 
       await this.userRepository.update(user);
 

@@ -11,8 +11,9 @@ import { UpdateUserPasswordDTO } from "./dto/update-user-password.dto";
 import { Me } from "../application/use-cases/me.use-case";
 import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 import { GetProfile } from "../application/use-cases/get-profile";
+import { Public } from "src/shared/infrastructure/decorators/public";
 
-
+@UseGuards(AuthGuard)
 @Controller('user')
 export class UserController {
 
@@ -36,12 +37,13 @@ export class UserController {
   @Inject(GetProfile.UseCase)
   private getProfileUseCase: GetProfile.UseCase
 
-
+  @Public(true)
   @Post('create')
   async createAccount(@Body() body: CreateUserDTO) {
     return this.createAccountUseCase.execute(body)
   }
 
+  @Public(true)
   @Post('login')
   async login(@Body() body: LoginDTO) {
     const result = await this.loginUseCase.execute(body);
@@ -80,6 +82,7 @@ export class UserController {
     return this.meUseCase.execute({ id: userId })
   }
 
+  @Public(true)
   @Get("profile/:username")
   async getProfile(@Param("username") username) {
     return this.getProfileUseCase.execute({ username })
