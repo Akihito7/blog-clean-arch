@@ -3,6 +3,7 @@ interface TipEntityInterface {
   title: string;
   content: string;
   link?: string;
+  current: boolean;
   used?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -40,8 +41,22 @@ export class TipEntity extends BaseEntity {
     return this._props.updatedAt;
   }
 
+  get current() {
+    return this._props.current;
+  }
+
   markAsUsed() {
     this._props.used = true;
+    this._props.updatedAt = new Date();
+  }
+
+  markAsCurrent() {
+    this._props.current = true;
+    this._props.updatedAt = new Date();
+  }
+
+  markAsNotCurrent() {
+    this._props.current = false;
     this._props.updatedAt = new Date();
   }
 }

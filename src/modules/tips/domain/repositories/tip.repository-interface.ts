@@ -3,5 +3,5 @@ import { TipEntity } from "../entities/tip.entity";
 
 export interface TipRepositoryInterface extends BaseRepository<TipEntity> {
   getUnusedTip(): Promise<TipEntity>;
-  markTipAsUsed: (tipEntity: TipEntity) => Promise<void>
+  getCurrentTip(): Promise<TipEntity>
 }
