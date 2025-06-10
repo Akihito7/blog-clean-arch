@@ -36,8 +36,9 @@ export class FollowRepositoryInMemory
 
   async alreadyFollowing(requesteredId: string, followed: string): Promise<boolean> {
     return this.items.some(followEntity =>
-      followEntity.followingId.toLowerCase() === requesteredId.toLowerCase()
-      && followEntity.followerId.toLowerCase() === followed.toLowerCase())
+      followEntity.followerId.toLowerCase() === requesteredId.toLowerCase() &&
+      followEntity.followingId.toLowerCase() === followed.toLowerCase()
+    );
   }
 
 }

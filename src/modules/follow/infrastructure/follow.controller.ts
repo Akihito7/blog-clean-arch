@@ -3,7 +3,6 @@ import { Follow } from "../application/use-cases/follow.use-case";
 import { FollowDTO } from "./dtos/follow.dto";
 import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 
-@UseGuards(AuthGuard)
 @Controller('follow')
 export class FollowController {
 

@@ -18,6 +18,8 @@ import { GetProfile } from "../application/use-cases/get-profile";
 import { PostRepositoryInterface } from "src/modules/posts/domain/repositories/post.repository.interface";
 import { CommentRepositoryInterface } from "src/modules/comments/domain/repositories/comment.repository.interface";
 import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/like.repository.interface";
+import { FollowRepositoryInMemory } from "src/modules/follow/infrastructure/database/in-memory/follow.repository-in-memory";
+import { FollowRepositoryInteface } from "src/modules/follow/domain/repositories/follow.repository.interface";
 
 @Module({
   imports: [AuthModule, RepositoriesInMemoryModule],
@@ -82,10 +84,12 @@ import { LikeRepositoryInterface } from "src/modules/likes/domain/repositories/l
         userRepository: UserRepositoryInterface,
         postRepository: PostRepositoryInterface,
         commentRepository: CommentRepositoryInterface,
-        likeRepository: LikeRepositoryInterface) => {
-        return new GetProfile.UseCase(userRepository, postRepository, commentRepository, likeRepository)
+        likeRepository: LikeRepositoryInterface,
+        followRepository: FollowRepositoryInteface
+      ) => {
+        return new GetProfile.UseCase(userRepository, postRepository, commentRepository, likeRepository, followRepository)
       },
-      inject: ['UserRepository', 'PostRepository', 'CommentRepository', 'LikeRepository']
+      inject: ['UserRepository', 'PostRepository', 'CommentRepository', 'LikeRepository', 'FollowRepository']
     },
     EnvConfigService
   ]
