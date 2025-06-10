@@ -1,7 +1,7 @@
 import { BaseUseCaseInterface } from "src/shared/application/use-cases/base-use-case";
 import { FollowRepositoryInteface } from "../../domain/repositories/follow.repository.interface";
 
-export namespace Follow {
+export namespace FindFollowers {
   export interface Input {
     userId: string
   }
