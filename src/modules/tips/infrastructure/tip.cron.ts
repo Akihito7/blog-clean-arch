@@ -1,5 +1,5 @@
 import { Inject } from "@nestjs/common";
-import { Cron } from "@nestjs/schedule";
+import { Cron, CronExpression } from "@nestjs/schedule";
 
 import { GetCurrentTip } from "../application/use-cases/get-current-tip.use-case";
 import { MarkTipAsUsed } from "../application/use-cases/mark-tip-as-used.use-case";
@@ -24,7 +24,7 @@ export class TipCron {
   @Inject(MarkTipAsCurrent.UseCase)
   private readonly markTipAsCurrentUseCase: MarkTipAsCurrent.UseCase;
 
-  @Cron('*/10 * * * * *')
+  @Cron(CronExpression.EVERY_30_MINUTES)
   async handleChangeTip() {
 
     const currentTip = await this.getCurrentTipUseCase.execute();

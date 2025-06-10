@@ -8,7 +8,7 @@ export class TipController {
   @Inject(GetCurrentTip.UseCase)
   private readonly getCurrentTipUseCase: GetCurrentTip.UseCase;
 
-  @Get()
+  @Get('current')
   async getCurrentTip() {
     return this.getCurrentTipUseCase.execute();
   }

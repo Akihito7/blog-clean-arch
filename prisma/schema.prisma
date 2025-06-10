@@ -54,3 +54,15 @@ model Like {
   author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
 }
+
+model Tip {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  link      String?   
+  current   Boolean
+  used      Boolean @default(false) 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
