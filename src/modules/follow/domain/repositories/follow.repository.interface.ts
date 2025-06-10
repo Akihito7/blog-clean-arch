@@ -6,4 +6,5 @@ export interface FollowRepositoryInteface extends BaseRepository<FollowEntity> {
   unFollow(requesteredId: string, followed: string): Promise<void>
   findFollowers(userId: string): Promise<FollowEntity[] | undefined>
   findFollowings(userId: string): Promise<FollowEntity[] | undefined>
+  alreadyFollowing(requesteredId: string, followed: string): Promise<boolean>
 }

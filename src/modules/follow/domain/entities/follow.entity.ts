@@ -3,13 +3,13 @@ import { BaseEntity } from "src/shared/domain/entities/base.entity";
 interface FollowEntityProps {
   followerId: string;
   followingId: string;
-  createadAt: Date;
+  createdAt?: Date;
 }
 
 export class FollowEntity extends BaseEntity<FollowEntityProps> {
   constructor(protected _props: FollowEntityProps, id?: string) {
     super(_props, id);
-    this._props.createadAt = _props.createadAt ?? new Date()
+    this._props.createdAt = _props.createdAt ?? new Date()
   }
 
   get followerId() {
