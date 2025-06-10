@@ -8,6 +8,7 @@ export namespace GetUnusedTip {
   }
 
   export interface Output {
+    id: string
     title: string;
     content: string;
     link: string;

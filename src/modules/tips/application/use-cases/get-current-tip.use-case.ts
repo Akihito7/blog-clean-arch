@@ -8,24 +8,25 @@ export namespace GetCurrentTip {
 
   }
 
-  export interface Output {
+  export type Output = {
+    id : string
     title: string;
     content: string;
     link: string;
     used: boolean;
     createdAt: Date;
     updatedAt: Date;
-  }
+  } | null
 
   export class UseCase implements BaseUseCaseInterface<Input, Output> {
-    
+
     constructor(private readonly tipRepository: TipRepositoryInterface) { }
 
     async execute(): Promise<Output> {
 
       const tipEntity = await this.tipRepository.getCurrentTip();
 
-      if (!tipEntity) throw new NotFoundError("Current tip not found");
+      if (!tipEntity) return null
 
       return tipEntity.toJson()
     }
