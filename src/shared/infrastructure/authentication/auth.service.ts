@@ -4,7 +4,9 @@ import { EnvConfigService } from '../env-config/env-config.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService, private readonly configService: EnvConfigService) { }
+  constructor(
+    private readonly jwtService: JwtService
+  ) { }
 
   async generateToken(userId: string) {
     const acessToken = this.jwtService.sign({ sub: userId });

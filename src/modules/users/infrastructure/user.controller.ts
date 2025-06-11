@@ -13,7 +13,6 @@ import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 import { GetProfile } from "../application/use-cases/get-profile";
 import { Public } from "src/shared/infrastructure/decorators/public";
 
-@UseGuards(AuthGuard)
 @Controller('user')
 export class UserController {
 
@@ -37,19 +36,6 @@ export class UserController {
   @Inject(GetProfile.UseCase)
   private getProfileUseCase: GetProfile.UseCase
 
-  @Public(true)
-  @Post('create')
-  async createAccount(@Body() body: CreateUserDTO) {
-    return this.createAccountUseCase.execute(body)
-  }
-
-  @Public(true)
-  @Post('login')
-  async login(@Body() body: LoginDTO) {
-    const result = await this.loginUseCase.execute(body);
-    return this.authService.generateToken(result.id)
-  }
-
   @Put()
   async update(@Req() req, @Body() body: UpdateUserDTO) {
     const userId = req.user.id;
@@ -58,7 +44,6 @@ export class UserController {
       ...body
     });
   }
-
 
   @Patch('update-password')
   async updatePassword(@Req() req, @Body() body: UpdateUserPasswordDTO) {
@@ -75,11 +60,23 @@ export class UserController {
     return this.authService.generateToken(result.id)
   }
 
-  @UseGuards(AuthGuard)
   @Get("me")
   async me(@Req() req) {
     const userId = req.user.id
     return this.meUseCase.execute({ id: userId })
+  }
+
+  @Public(true)
+  @Post('create')
+  async createAccount(@Body() body: CreateUserDTO) {
+    return this.createAccountUseCase.execute(body)
+  }
+
+  @Public(true)
+  @Post('login')
+  async login(@Body() body: LoginDTO) {
+    const result = await this.loginUseCase.execute(body);
+    return this.authService.generateToken(result.id)
   }
 
   @Public(true)

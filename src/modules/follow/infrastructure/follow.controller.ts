@@ -4,10 +4,8 @@ import { FollowDTO } from "./dtos/follow.dto";
 import { Unfollow } from "../application/use-cases/unfollow.use-case";
 import { FindFollowers } from "../application/use-cases/find-followers.use-case";
 import { FindFollowing } from "../application/use-cases/find-followings.use-case";
-import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 
 
-@UseGuards(AuthGuard)
 @Controller('follow')
 export class FollowController {
 

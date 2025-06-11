@@ -8,7 +8,6 @@ import { ParamsGetCommentAuthorInPostDTO } from "./dto/get-comment-author-in-pos
 import { QueryCommentByContentDTO } from "./dto/get-comment-by-content.dto";
 import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 
-@UseGuards(AuthGuard)
 @Controller('comment')
 export class CommentController {
 

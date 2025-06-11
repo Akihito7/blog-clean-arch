@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Post, Req } from "@nestjs/common";
 import { AddLike } from "../application/use-cases/add-like.use-case";
 import { AddLikeDTO } from "./dto/add-like.dto";
 import { CheckLike } from "../application/use-cases/check-like.use-case";
@@ -6,14 +6,12 @@ import { ListLike } from "../application/use-cases/list-like.use-case";
 import { RemoveLike } from "../application/use-cases/remove-like.use-case";
 import { CheckLikeDTO } from "./dto/check-like.dto";
 import { GetLikeByPostAndAuthor } from "../application/use-cases/get-like-by-post-and-author";
-import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 import { GetLikeByCommentAndAuthor } from "../application/use-cases/get-like-by-comment-and-author";
 import { AddLikeToCommentUseCase } from "../application/use-cases/add-like-to-comment.use-case";
 import { CheckCommentLike } from "../application/use-cases/check-like-comment";
 import { CheckLikeCommentDTO } from "./dto/check-like-comment.dto";
 
 
-@UseGuards(AuthGuard)
 @Controller('like')
 export class LikeController {
 

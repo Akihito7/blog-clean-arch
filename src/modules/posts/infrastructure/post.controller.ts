@@ -9,11 +9,8 @@ import { QueryGetPostByTags } from "./dto/get-post-by-tags.dto";
 import { GetPostByTags } from "../application/use-cases/get-post-by-tags.use-case";
 import { UpdatePost } from "../application/use-cases/update-post.use-case";
 import { UpdatePostDTO } from "./dto/update-post.dto";
-import { AuthGuard } from "src/shared/infrastructure/guards/auth.guard";
 import { Public } from "src/shared/infrastructure/decorators/public";
 
-
-@UseGuards(AuthGuard)
 @Controller("post")
 export class PostController {
 
@@ -51,12 +48,14 @@ export class PostController {
     return this.getPostUseCase.execute({ id, userId })
   };
 
+  @Public(true)
   @Get('by-tags')
   async getPostByTags(@Query() query: QueryGetPostByTags) {
     const tags = query.tags.split(',');
     return this.getPostByTagsUseCase.execute({ tags })
   }
 
+  @Public(true)
   @Get("author/:id")
   async getManyByAuthorId(@Param("id") id: string) {
     return this.getManyPostByAuthorIdUseCase.execute({ authorId: id })
