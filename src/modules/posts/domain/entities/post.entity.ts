@@ -77,8 +77,8 @@ export class PostEntity extends BaseEntity<PostEntityProps> {
     if (authorId && this.authorId != authorId) {
       throw new NotAllowedError('You do not have permission to change the content.');
     }
-    if (!content || content.length < 64) {
-      throw new InvalidContentError('Content must be longer than 63 characters.');
+    if (!content || content.length < 12) {
+      throw new InvalidContentError('Content must be longer than 11 characters.');
     }
   }
 

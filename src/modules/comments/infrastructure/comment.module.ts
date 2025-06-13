@@ -8,6 +8,8 @@ import { GetCommentByPost } from "../application/use-cases/get-comment-by-post.u
 import { GetCommentAuthorInPost } from "../application/use-cases/get-comment-author-in-post.use-case";
 import { GetCommentByAuthor } from "../application/use-cases/get-comment-by-author.use-case";
 import { GetCommentByContent } from "../application/use-cases/get-comment-by-content.use-case";
+import { UpdateComment } from "../application/use-cases/update-comment.use-case";
+import { DeleteComment } from "../application/use-cases/delete-comment.use-case";
 
 @Module({
   imports: [RepositoriesInMemoryModule],
@@ -45,6 +47,20 @@ import { GetCommentByContent } from "../application/use-cases/get-comment-by-con
       provide: GetCommentByPost.UseCase,
       useFactory: (commentRepository: CommentRepositoryInterface) => {
         return new GetCommentByPost.UseCase(commentRepository)
+      },
+      inject: ['CommentRepository',]
+    },
+    {
+      provide: UpdateComment.UseCase,
+      useFactory: (commentRepository: CommentRepositoryInterface) => {
+        return new UpdateComment.UseCase(commentRepository)
+      },
+      inject: ['CommentRepository',]
+    },
+    {
+      provide: DeleteComment.UseCase,
+      useFactory: (commentRepository: CommentRepositoryInterface) => {
+        return new DeleteComment.UseCase(commentRepository)
       },
       inject: ['CommentRepository',]
     },

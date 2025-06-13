@@ -7,7 +7,7 @@ export class CreatePostDTO {
   title: string;
 
   @IsString()
-  @MinLength(64)
+  @MinLength(12)
   content: string;
   
   @IsOptional()
